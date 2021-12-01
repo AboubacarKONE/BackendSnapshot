@@ -55,4 +55,8 @@ public class AdminServiceImpl implements AdminService {
 						ErrorCodes.ADMININSTRATEUR_NOT_FOUND));
 	}
 
+	@Override
+	public Optional<Administrateur> LoginUser(String login, String password) {
+		return adminRepository.getUserByLoginAndPassword(login, password);
+	}
 }

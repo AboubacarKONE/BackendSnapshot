@@ -126,4 +126,8 @@ public class ParticipantController {
     public int findByparticipantGenre(@PathVariable("genre") ParticipantGenre genre){
     	return participantService.findByparticipantGenre(genre);
     }
+    @PostMapping("/many/participant/save")
+    public List <Participant> save(@RequestBody List<Participant> participants){
+        return participantService.addManyParticipant(participants);
+    }
 }

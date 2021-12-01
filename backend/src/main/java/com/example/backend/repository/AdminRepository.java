@@ -19,4 +19,5 @@ public interface AdminRepository extends JpaRepository<Administrateur, Long> {
 	//List<Administrateur>findAllByRoleId(Long id);
 	@Query(value="select u from Administrateur u where u.email = :email")
     Optional<Administrateur>findByEmail(@Param("email") String email);
+	Optional<Administrateur> getUserByLoginAndPassword( String login, String password);
 }
