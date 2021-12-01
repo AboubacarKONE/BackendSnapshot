@@ -14,5 +14,7 @@ public interface ParticipationService {
     public void updateParticipation(Long id, Participation p);
     public List<Participation> getAllParticipation();
     public Participation getParticipationById(Long id);
+    List<Participation>participantByActivite(Long IdActivite);
+    public List<Participation>participantInactive();
 
 }
