@@ -69,4 +69,9 @@ public class ParticipationController {
     public List<Participation> getParticipantByActivite(@PathVariable ("id") Long Id_activite){
         return participationService.participantByActivite(Id_activite);
     }
+
+   @GetMapping("/getParticipationInactive")
+    public List<Participation> participantInactive() {
+        return participationService.participantInactive();
+    }
 }

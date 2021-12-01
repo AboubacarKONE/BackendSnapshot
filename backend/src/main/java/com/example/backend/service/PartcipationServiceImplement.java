@@ -2,6 +2,7 @@ package com.example.backend.service;
 
 import com.example.backend.model.Participation;
 import com.example.backend.repository.ParticipationRepo;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,16 +41,21 @@ public class PartcipationServiceImplement implements ParticipationService {
 
 	@Override
 	public List<Participation> getAllParticipation() {
-		return participationRepo.findAll();
+		return participationRepo.getAllParticipation();
 	}
 
 	@Override
 	public Participation getParticipationById(Long id) {
-		return participationRepo.findById(id).get();
+		return participationRepo.getPartById(id);
 	}
 
 	@Override
 	public List<Participation> participantByActivite(Long IdActivite) {
 		return participationRepo.getParticipationByActiviteAndEtat(IdActivite);
+	}
+
+	@Override
+	public List<Participation> participantInactive() {
+		return participationRepo.getAllParticipationInactive();
 	}
 }
