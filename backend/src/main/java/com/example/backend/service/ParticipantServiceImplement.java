@@ -56,8 +56,8 @@ public class ParticipantServiceImplement implements ParticipantService {
 	}
 
 	@Override
-	public Participant ParticipantById(Long id) {
-		return participantRepository.findById(id).get();
+	public Participant ParticipantById(Long id_participant) {
+		return participantRepository.ParticipantById(id_participant);
 	}
 
 	@Override

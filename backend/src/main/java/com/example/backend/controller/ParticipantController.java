@@ -82,7 +82,7 @@ public class ParticipantController {
 	}
     
 
-    @GetMapping("/participantGenre={genre}")
+    @GetMapping("/participantGenre/{genre}")
     public int findByparticipantGenre(@PathVariable("genre") ParticipantGenre genre){
     	return participantService.findByparticipantGenre(genre);
     }

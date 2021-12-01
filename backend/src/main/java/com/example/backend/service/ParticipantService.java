@@ -8,7 +8,7 @@ public interface ParticipantService {
     public Participant updateParticipant(Long id, Participant participant);
     public List<Participant> listParticipant();
     void deleteParticipant( Long id);
-    Participant ParticipantById(Long id);
+    Participant ParticipantById(Long id_participant);
     int findByparticipantGenre(ParticipantGenre genre);
     public List<Participant> addManyParticipant(List<Participant> participants);
 }

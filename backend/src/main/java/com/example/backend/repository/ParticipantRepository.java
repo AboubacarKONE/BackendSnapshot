@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public interface ParticipantRepository  extends JpaRepository<Participant,Long> {
 	 @Query("SELECT p FROM Participant p WHERE p.email = :email")
 	    Optional<Participant> findParticipant(@Param("email") String email);
-	@Query("SELECT count(*) FROM Participant p WHERE p.participantGenre =:participantGenre")
+	@Query("SELECT count(*) FROM Participant p WHERE p.participantGenre =:participantGenre and p.etat='active'")
 	int findByparticipantGenre(@Param("participantGenre") ParticipantGenre participantGenre);
+
+	@Query("SELECT p FROM Participant p WHERE p.id_participant=:id_participant and p.etat='active'")
+	Participant ParticipantById(Long id_participant);
 }
