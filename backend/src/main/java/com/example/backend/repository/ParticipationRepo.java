@@ -1,5 +1,6 @@
 package com.example.backend.repository;
 
+import com.example.backend.enumeration.Etat;
 import com.example.backend.model.Participation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,7 +21,7 @@ public interface ParticipationRepo extends JpaRepository<Participation, Long> {
     @Query(value = "SELECT par FROM Participation par WHERE par.id_participation = :id_participation AND par.etat = 'active' ")
     Participation getPartById(@Param("id_participation")Long id_participation);
 
-    @Query(value = "SELECT c FROM Participation c WHERE c.etat = 'inactive' ")
-    List<Participation> getAllParticipationInactive();
+    @Query(value = "SELECT c FROM Participation c WHERE c.etat = :etat")
+    List<Participation> getAllParticipationByEtat(@Param("etat") Etat etat);
 
 }

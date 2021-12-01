@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.enumeration.Etat;
 import com.example.backend.model.Participation;
 import com.example.backend.service.ParticipationService;
 
@@ -47,7 +48,7 @@ public class ParticipationController {
     }
 
     @GetMapping("/listeParticipation")
-    @ApiOperation(value = "renvoi la liste des participations", notes = "cette methode permet de chercher et renvoyer la liste des participations qui existent"
+    @ApiOperation(value = "renvoi la liste des participations dont l'etat est active", notes = "cette methode permet de chercher et renvoyer la liste des participations dont l'etat est active qui existent"
             + "dans la BDD", responseContainer = "liste<Participation>")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des participants / une liste vide") })
     public List<Participation> getAllParticipation() {
@@ -55,7 +56,7 @@ public class ParticipationController {
     }
 
     @GetMapping("/getParticipation/{id}")
-    @ApiOperation(value = "rechercher un participation", notes = "cette methode permet de rechercher un participant par son id", response = Participation.class)
+    @ApiOperation(value = "rechercher un participation dont l'etat est active", notes = "cette methode permet de rechercher un participant dont l'etat est active par son id", response = Participation.class)
     @ApiResponses(value = { @ApiResponse(code = 200, message = "l'apprenant trouvé dans la BDD"),
             @ApiResponse(code = 404, message = "aucun participant avec cet id n'existe dans la BDD") })
     public Participation getParticipationById(@PathVariable("id") Long id) {
@@ -63,15 +64,19 @@ public class ParticipationController {
     }
 
     @GetMapping("/getParticipantActivite/{id}")
-    @ApiOperation(value = "rechercher la liste des participants par activite", notes = "cette methode permet de rechercher tous les participants dans une activité donné", response = Participation.class)
+    @ApiOperation(value = "rechercher la liste des participants dont l'etat est active par activite ", notes = "cette methode permet de rechercher tous les participants dont l'etat est active dans une activité donné", response = Participation.class)
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Liste des participants trouvé"),
             @ApiResponse(code = 404, message = "aucune liste trouvé") })
     public List<Participation> getParticipantByActivite(@PathVariable ("id") Long Id_activite){
         return participationService.participantByActivite(Id_activite);
     }
 
-   @GetMapping("/getParticipationInactive")
-    public List<Participation> participantInactive() {
-        return participationService.participantInactive();
+
+    @ApiOperation(value = "rechercher la liste des participants par etat", notes = "cette methode permet de rechercher tous les participants par etat", response = Participation.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Liste des participants trouvé"),
+            @ApiResponse(code = 404, message = "aucune liste trouvé") })
+    @GetMapping("/getParticipationEtat/{etat}")
+    public List<Participation> participationByEtat(@PathVariable("etat") Etat etat) {
+        return participationService.participationByEtat(etat);
     }
 }

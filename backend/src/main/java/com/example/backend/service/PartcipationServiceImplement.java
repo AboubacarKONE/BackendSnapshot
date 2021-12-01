@@ -1,11 +1,13 @@
 package com.example.backend.service;
 
+import com.example.backend.enumeration.Etat;
 import com.example.backend.model.Participation;
 import com.example.backend.repository.ParticipationRepo;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -55,7 +57,7 @@ public class PartcipationServiceImplement implements ParticipationService {
 	}
 
 	@Override
-	public List<Participation> participantInactive() {
-		return participationRepo.getAllParticipationInactive();
+	public List<Participation> participationByEtat(Etat etat) {
+		return participationRepo.getAllParticipationByEtat(etat);
 	}
 }
