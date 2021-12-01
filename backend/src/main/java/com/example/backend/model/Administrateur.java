@@ -30,6 +30,7 @@ public class Administrateur implements Serializable {
 	private String prenom;
 	private String password;
 	private String photoUrl;
+	private String login;
 	@Email
 	private String email;
 	@Enumerated(EnumType.STRING)

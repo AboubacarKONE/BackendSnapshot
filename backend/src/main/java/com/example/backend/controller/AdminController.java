@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -72,6 +73,11 @@ public class AdminController {
 			@ApiResponse(code = 404, message = "aucun administrateur avec cet id n'existe dans la BDD") })
     public void delete(@PathVariable(name = "id") Long id){
     	adminService.deleteAdmin(id);
+    }
+    //login
+    @GetMapping("/login/{login}&{password}")
+    public Optional<Administrateur> loginUser(@PathVariable("login") String login, @PathVariable("password") String password) {
+        return adminService.LoginUser(login, password);
     }
 
     //public @ResponseBody ResponseEntity<?> deleteAdmin(@PathVariable(value = "id") Long id){
