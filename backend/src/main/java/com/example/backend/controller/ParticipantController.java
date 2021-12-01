@@ -49,7 +49,7 @@ public class ParticipantController {
     @ApiOperation(value = "supprimer un participant", notes = "cette methode permet de supprimer un participant par son id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "le participant a été supprimé"),
 			@ApiResponse(code = 404, message = "aucun participant avec cet id n'existe dans la BDD") })
-    public void delete (@PathVariable("id") Long id){
+    public void deleteParticipant (@PathVariable("id") Long id){
        participantService.deleteParticipant(id);
       
     }
@@ -80,15 +80,17 @@ public class ParticipantController {
     public Participant ParticipantById(@PathVariable("id") Long id) {
 		return participantService.ParticipantById(id);
 	}
-    
 
+
+    //Cette méthode permet récupérer par genre dont l'etat est inactive
     @GetMapping("/participantGenre/{genre}")
     public int findByparticipantGenre(@PathVariable("genre") ParticipantGenre genre){
     	return participantService.findByparticipantGenre(genre);
     }
 
+    //Cette méthode permet d'importer le fichier Excel
     @PostMapping("/uploadExcel")
     public List <Participant> save(@RequestBody List<Participant> participants){
-        return participantService.addManyParticipant(participants);
+        return participantService.addParticipant(participants);
     }
 }

@@ -21,4 +21,5 @@ public interface ParticipantRepository  extends JpaRepository<Participant,Long> 
 
 	@Query("SELECT p FROM Participant p WHERE p.id_participant=:id_participant and p.etat='active'")
 	Participant ParticipantById(Long id_participant);
+
 }

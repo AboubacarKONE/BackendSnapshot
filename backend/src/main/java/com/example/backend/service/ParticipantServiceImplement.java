@@ -41,6 +41,7 @@ public class ParticipantServiceImplement implements ParticipantService {
 		mod.setDomaine(participant.getDomaine());
 		mod.setStructure(participant.getStructure());
 		mod.setTelephone(participant.getTelephone());
+		mod.setEtat(participant.getEtat());
 		return participantRepository.save(mod);
 
 	}
@@ -66,7 +67,7 @@ public class ParticipantServiceImplement implements ParticipantService {
 	}
 
 	@Override
-	public List<Participant> addManyParticipant(List<Participant> participants) {
+	public List<Participant> addParticipant(List<Participant> participants) {
 		List<Participant> list = new ArrayList<>();
 		for(int i=0; i<participants.size(); i++){
 			System.out.println(participants.get(i));
