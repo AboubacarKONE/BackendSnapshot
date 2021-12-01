@@ -32,7 +32,7 @@ public class Participant implements Serializable {
 	private long id_participant;
 	@NotBlank(message = "Veuillez renseigner le nom du participant...")
 	private String nom_complet;
-	@NotNull(message = "Veuillez renseigner le numéro de téléphone...")
+	@NotNull(message = "Veuillez renseigner le numéro de téléphone....")
 	private Integer telephone;
 	private String domaine;
 	private String structure;
