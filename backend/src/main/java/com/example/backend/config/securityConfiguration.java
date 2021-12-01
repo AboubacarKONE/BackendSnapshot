@@ -32,6 +32,7 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter{
 		//http.formLogin();
 		http.csrf().disable()
 		.authorizeRequests().antMatchers("/**/authenticate",
+				 "/**/odcmanager/api/v1/**/",
 				 "/v2/api-docs",
 				"/swagger-resources",
 		        "/swagger-resources/**",

@@ -1,4 +1,5 @@
 package com.example.backend.controller;
+import com.example.backend.enumeration.Etat;
 import com.example.backend.enumeration.ParticipantGenre;
 import com.example.backend.model.Participant;
 import com.example.backend.repository.ParticipantRepository;
@@ -80,7 +81,6 @@ public class ParticipantController {
     @PostMapping("/uploadexcel")
     public List<Participant> importExcelFile(@RequestParam("file") MultipartFile files) throws IOException, IOException {
         List<Participant> participants = new ArrayList<>();
-        System.out.println(files);
 
         XSSFWorkbook workbook = new XSSFWorkbook(files.getInputStream());
 
