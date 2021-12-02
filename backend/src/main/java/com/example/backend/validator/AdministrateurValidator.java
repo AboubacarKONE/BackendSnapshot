@@ -38,9 +38,9 @@ public class AdministrateurValidator {
 		if(admin.getEtat()==null) {
 			errors.add("Veuillez renseigner l'état de l'administrateur");
 		}
-//		if(admin.getRole()==null||admin.getRole().getId()==null) {
-//			errors.add("Veuillez renseigner le role de l'administrzteur");
-//		}
+	//	if(admin.getRoles()==null||admin.getRoles().getId()==null) {
+	//		errors.add("Veuillez renseigner le role de l'administrzteur");
+	//	}
 		return errors;
 	}
 

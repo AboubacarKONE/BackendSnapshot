@@ -32,7 +32,7 @@ public class ParticipationController {
     }
 
     @DeleteMapping("/deletep/{id}")
-    @ApiOperation(value = "supprimer une participation", notes = "cette methode permet de supprimer une participation par son id")
+    @ApiOperation(value = "supprimer une participation", notes = "cette methode permet de supprimer une participation par son id en changeant l'etat de active a inactive")
     @ApiResponses(value = { @ApiResponse(code = 200, message = "la participation a été supprimé"),
             @ApiResponse(code = 404, message = "aucune participation avec cet id n'existe dans la BDD") })
     public void deleteParticipation(@PathVariable("id") Long id) {
@@ -80,7 +80,9 @@ public class ParticipationController {
         return participationService.participationByEtat(etat);
     }
 
-
+    @ApiOperation(value = "restaurer une participation", notes = "cette methode permet de restaurer une participation", response = Participation.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "Restaurer avec succès"),
+            @ApiResponse(code = 404, message = "Erreur de restauration , verifier votre requette") })
     @GetMapping("/restaure/{id}")
     public void restaurer(@PathVariable("id") Long id) {
         participationService.restaurer(id);
