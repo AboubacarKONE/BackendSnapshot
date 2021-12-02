@@ -73,10 +73,16 @@ public class ActiviteController {
      }
      //activite par anne
      @GetMapping("/activiteByAnnee={annee}")
+     @ApiOperation(value = "avoir une activité par année" , notes = "cette methode permet de renvoyer une activité selon l'année d'exercice")
+     @ApiResponses(value = { @ApiResponse(code = 200, message = "activité selon l'année"),
+             @ApiResponse(code = 404, message = "aucune activité avec cette année n'existe dans la BDD") })
      List<Activite>findActiviteByAnnee(@PathVariable String annee){
     	 return activiteService.findActiviteByAnnee(annee);
      }
      @GetMapping("/actviteByMonth={year}-{month}")
+     @ApiOperation(value = "avoir une activité par mois" , notes = "cette methode permet de renvoyer une activité selon le mois")
+     @ApiResponses(value = { @ApiResponse(code = 200, message = "activité selon le mois"),
+             @ApiResponse(code = 404, message = "aucune activité avec ce mois n'existe dans la BDD") })
      public List<Activite> listByMonth(@PathVariable("year") int year, @PathVariable("month") int month ){
          return activiteService.getActiviteByMonth(year,month);
      }
