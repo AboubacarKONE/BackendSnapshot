@@ -24,7 +24,7 @@ public class ExerciceServiceImpl implements ExerciceService{
 	@Override
 	public List<Exercice> listExercice() {
 		
-		return exerciceRepository.findAll();
+		return exerciceRepository.getAllExercice();
 	}
 
 	@Override
