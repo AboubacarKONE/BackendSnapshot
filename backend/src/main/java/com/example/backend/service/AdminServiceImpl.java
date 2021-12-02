@@ -45,8 +45,13 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void deleteAdmin(Long id) {
-		adminRepository.deleteById(id);
+		adminRepository.deleteAdminEtat(id);
 
+	}
+
+	@Override
+	public void resetAdmin(Long id) {
+		adminRepository.resetAdminEtat(id);
 	}
 
 	@Override
@@ -57,11 +62,6 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Administrateur AdminById(Long id) {
 		return adminRepository.getAdById(id);
-	}
-
-	@Override
-	public void UpdateAdmin(Long id, Administrateur administrateur) {
-		adminRepository.deleteAdminEtat(id);
 	}
 
 

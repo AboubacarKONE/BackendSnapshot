@@ -13,9 +13,9 @@ public interface AdminService {
 	 Administrateur updateAdmin(Long id, Administrateur admin);
 	 public Administrateur getAdById(Long id);
 	 void deleteAdmin(Long id);
+	 public void resetAdmin(Long id);
 	public List<Administrateur> getAdministrateurByEtat(Etat etat);
 	Administrateur AdminById(Long id);
-	public void UpdateAdmin(Long id, Administrateur administrateur);
 
 	Administrateur findByEmail(String Email);
 	 Optional<Administrateur> LoginUser(String login, String password);

@@ -39,4 +39,9 @@ public interface AdminRepository extends JpaRepository<Administrateur, Long> {
 	@Modifying
 	@Query(value = "UPDATE Administrateur SET etat = 'inactive' WHERE id = :id ")
 	void deleteAdminEtat(@Param("id") Long id);
+
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE Administrateur SET etat = 'active' WHERE id = :id ")
+	void resetAdminEtat(@Param("id") Long id);
 }
