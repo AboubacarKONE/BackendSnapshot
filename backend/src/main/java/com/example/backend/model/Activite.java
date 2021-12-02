@@ -43,7 +43,7 @@ public class Activite {
     private LocalDate dateDebut;
     private LocalDate dateFin;
     @Enumerated(EnumType.STRING)
-    private Etat etat;
+    private Etat etat = Etat.active;
     @ManyToOne
     private Administrateur administrateur;
     @ManyToOne
