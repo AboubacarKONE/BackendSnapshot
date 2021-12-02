@@ -48,13 +48,19 @@ public class ParticipantServiceImplement implements ParticipantService {
 
 	@Override
 	public List<Participant> listParticipant() {
-		return participantRepository.findAll();
+		return participantRepository.listParticipant();
 	}
 
 	@Override
-	public void deleteParticipant(Long id) {
-		participantRepository.deleteById(id);
+	public void supprimer(Long id_participant) {
+		 participantRepository.supprimer(id_participant);
 	}
+
+	@Override
+	public void recupere (Long id_participant) {
+		participantRepository.recpere(id_participant);
+	}
+
 
 	@Override
 	public Participant ParticipantById(Long id_participant) {

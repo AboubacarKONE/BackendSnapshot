@@ -45,14 +45,6 @@ public class ParticipantController {
         participantService.addParticipant(participant);
         
     }
-    @DeleteMapping(value = "/deleteParticipant/{id}")
-    @ApiOperation(value = "supprimer un participant", notes = "cette methode permet de supprimer un participant par son id")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "le participant a été supprimé"),
-			@ApiResponse(code = 404, message = "aucun participant avec cet id n'existe dans la BDD") })
-    public void deleteParticipant (@PathVariable("id") Long id){
-       participantService.deleteParticipant(id);
-      
-    }
 
     @PutMapping(path = "/participant/{id}")
     @ApiOperation(value = "Modifier un participant", notes = "cette methode permet de modifier un participant", response = Participant.class)
@@ -68,7 +60,7 @@ public class ParticipantController {
 			+ "dans la BDD", responseContainer = "list<particiapnt>")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des particiapnt / une liste vide") })
     @ResponseBody
-    public List<Participant> list(){
+    public List<Participant> listParticipant(){
         return participantService.listParticipant();
     }
     
@@ -93,4 +85,14 @@ public class ParticipantController {
     public List <Participant> save(@RequestBody List<Participant> participants){
         return participantService.addParticipant(participants);
     }
+
+    @PutMapping("/supprimer/{id_participant}")
+        public void supprimer(@PathVariable("id_participant") Long id_participant){
+            participantService.supprimer(id_participant);
+        }
+    @PutMapping("/recupere/{id}")
+    public void recupere(@PathVariable("id") Long id_participant){
+         participantService.recupere(id_participant);
+    }
+
 }
