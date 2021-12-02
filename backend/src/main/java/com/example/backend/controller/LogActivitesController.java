@@ -4,18 +4,12 @@ import java.util.List;
 
 import com.example.backend.enumeration.Etat;
 import com.example.backend.model.Administrateur;
+import com.example.backend.repository.LogActivitesRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.example.backend.model.LogActivites;
 import com.example.backend.service.LogActivitesService;
 
@@ -28,6 +22,9 @@ import io.swagger.annotations.Api;
 public class LogActivitesController {
 	@Autowired
 	LogActivitesService logactivitesService;
+	@Autowired
+	LogActivitesRepository repos;
+
 	 //ajouter d'une historique
 	@PostMapping("/addlog")
 	@ApiOperation(value = "Enregistrer un logActivites", notes = "cette methode permet d'ajouter un log Activites", response = LogActivites.class)
@@ -40,7 +37,7 @@ public class LogActivitesController {
 
 	//lister seul les activites qui sont active
 	  @GetMapping("/listehistorique")
-	  @ApiOperation(value = "lister actives active", notes = "cette methode permet d'afficher un log Activites", response = LogActivites.class)
+	  @ApiOperation(value = "lister actives active", notes = "cette methode permet d'afficher un log Activitess", response = LogActivites.class)
 	  @ApiResponses(value = { @ApiResponse(code = 200, message = "Affichage l'objet LogActivites "),
 			  @ApiResponse(code = 400, message = "Log Activites abscent") })
 	  public List<LogActivites> listLogActivites(){
@@ -54,6 +51,12 @@ public class LogActivitesController {
 	    public LogActivites listLogActivitebyid(@PathVariable("id") Long id){
 	    	return logactivitesService.activiteByidAndEtat(id);
 	    }
+
+	//Update LogActivite en inactive
+	@PutMapping("/histoireUpdate/{id}")
+	public  void update( @PathVariable Long id ){
+		repos.LogActivite(id);
+	}
 
 	    //supprimer une histoirique
             

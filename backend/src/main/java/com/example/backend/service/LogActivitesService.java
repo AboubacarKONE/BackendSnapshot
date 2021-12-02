@@ -18,4 +18,6 @@ public interface LogActivitesService {
 
     //Effacer un log d'activité par son id
     void deleteLogActivitesByid(Long id);
+
+
 }
