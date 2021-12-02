@@ -41,23 +41,30 @@ public class ParticipantServiceImplement implements ParticipantService {
 		mod.setDomaine(participant.getDomaine());
 		mod.setStructure(participant.getStructure());
 		mod.setTelephone(participant.getTelephone());
+		mod.setEtat(participant.getEtat());
 		return participantRepository.save(mod);
 
 	}
 
 	@Override
 	public List<Participant> listParticipant() {
-		return participantRepository.findAll();
+		return participantRepository.listParticipant();
 	}
 
 	@Override
-	public void deleteParticipant(Long id) {
-		participantRepository.deleteById(id);
+	public void supprimer(Long id_participant) {
+		 participantRepository.supprimer(id_participant);
 	}
 
 	@Override
-	public Participant ParticipantById(Long id) {
-		return participantRepository.findById(id).get();
+	public void recupere (Long id_participant) {
+		participantRepository.recpere(id_participant);
+	}
+
+
+	@Override
+	public Participant ParticipantById(Long id_participant) {
+		return participantRepository.ParticipantById(id_participant);
 	}
 
 	@Override
@@ -66,7 +73,7 @@ public class ParticipantServiceImplement implements ParticipantService {
 	}
 
 	@Override
-	public List<Participant> addManyParticipant(List<Participant> participants) {
+	public List<Participant> addParticipant(List<Participant> participants) {
 		List<Participant> list = new ArrayList<>();
 		for(int i=0; i<participants.size(); i++){
 			System.out.println(participants.get(i));
