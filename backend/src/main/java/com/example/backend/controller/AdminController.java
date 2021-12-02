@@ -63,6 +63,7 @@ public class AdminController {
 
         return new ResponseEntity<>	(adminService.updateAdmin(id, admin), HttpStatus.OK);
     }
+
     //listeByID
     @GetMapping("/adminById/{id}")
     public Administrateur AdminById(@PathVariable Long id) {
@@ -77,27 +78,24 @@ public class AdminController {
     public void delete(@PathVariable(name = "id") Long id){
     	adminService.deleteAdmin(id);
     }
+
     //login
     @GetMapping("/login/{login}&{password}")
     public Optional<Administrateur> loginUser(@PathVariable("login") String login, @PathVariable("password") String password) {
         return adminService.LoginUser(login, password);
     }
+
     //liste admin par état
     @GetMapping("/adminParEtat/{etat}")
     public List<Administrateur> getAdministrateurByEtat(@PathVariable Etat etat) {
         return adminService.getAdministrateurByEtat(etat);
     }
 
-        //archiver admin
-        @PutMapping("/archiverAdmin/{id}")
-            public String UpdateAdministrateur (@PathVariable("id") Long id, @RequestBody  Administrateur administrateur){
-                return "mis a jour effectuée";
-            }
+    //archiver admin
+    @PutMapping("/archiverAdmin/{id}")
+    public String UpdateAdministrateur (@PathVariable("id") Long id, @RequestBody  Administrateur administrateur){
+        return "mis a jour effectuée";
+    }
 
 }
-
-
-            //public @ResponseBody ResponseEntity<?> deleteAdmin(@PathVariable(value = "id") Long id){
-            //return new ResponseEntity<>(adminService.deleteAdmin(id), HttpStatus.OK);
-
 

@@ -87,9 +87,10 @@ public class ParticipantController {
     }
 
     @PutMapping("/supprimer/{id_participant}")
-        public void supprimer(@PathVariable("id_participant") Long id_participant){
-            participantService.supprimer(id_participant);
-        }
+    public void supprimer(@PathVariable("id_participant") Long id_participant){
+        participantService.supprimer(id_participant);
+    }
+
     @PutMapping("/recupere/{id}")
     public void recupere(@PathVariable("id") Long id_participant){
          participantService.recupere(id_participant);
