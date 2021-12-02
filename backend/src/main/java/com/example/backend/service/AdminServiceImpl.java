@@ -26,9 +26,15 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Administrateur saveAdmin(Administrateur admin) {
-		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-		return adminRepository.save(admin);
+	public String saveAdmin(Administrateur admin) {
+		Optional<Administrateur> optionalAdministrateur= this.adminRepository.findByEmail(admin.getEmail());
+		//admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+		if(!optionalAdministrateur.isPresent()){
+			adminRepository.save(admin);
+			return "ajouter avec success...!!";
+		}else {
+			return "Cette email "+ admin.getEmail() +" existe déjà";
+		}
 	}
 
 	@Override
