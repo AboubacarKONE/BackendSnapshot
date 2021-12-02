@@ -31,7 +31,6 @@ public interface ParticipationRepo extends JpaRepository<Participation, Long> {
     @Query(value = "UPDATE Participation SET etat = 'inactive' WHERE id_participation = :id_participation ")
     void deleteParticipationEtat(@Param("id_participation") Long id_participation);
 
-
     @Transactional
     @Modifying
     @Query(value = "UPDATE Participation SET etat = 'active' WHERE id_participation = :id_participation ")
