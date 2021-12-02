@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.enumeration.Etat;
 import com.example.backend.enumeration.ParticipantGenre;
 import com.example.backend.model.Participant;
 import com.example.backend.repository.ParticipantRepository;
@@ -44,25 +45,19 @@ public class ParticipantServiceImplement implements ParticipantService {
 		return participantRepository.save(mod);
 
 	}
-
-	@Override
-	public List<Participant> listParticipant() {
-		return participantRepository.findAll();
-	}
-
 	@Override
 	public void deleteParticipant(Long id) {
 		participantRepository.deleteById(id);
 	}
 
-	@Override
-	public Participant ParticipantById(Long id) {
-		return participantRepository.findById(id).get();
-	}
+	//@Override
+	//public Participant ParticipantById(Long id) {
+		//return participantRepository.findById(id).get();
+	//}
 
 	@Override
-	public int findByparticipantGenre(ParticipantGenre genre) {
-		return participantRepository.findByparticipantGenre(genre);
+	public int findByparticipantGenreAndEtat(ParticipantGenre genre) {
+		return participantRepository.findByparticipantGenreAndEtat(genre);
 	}
 
 	@Override
@@ -81,5 +76,27 @@ public class ParticipantServiceImplement implements ParticipantService {
 		}
 		return list;
 	}
+
+	@Override
+	public Participant findByIdAndEtat(Long id_participant, Etat etat) {
+		return participantRepository.findByIdAndEtat(id_participant,etat);
+	}
+//methode afficher un participant par son Id
+	@Override
+	public List<Participant> findByEtat(Etat etat) {
+		return  participantRepository.findByEtat(etat);
+	}
+
+	@Override
+	public void updateParticipant(Long id) {
+		participantRepository.updateParticipant(id);
+	}
+	// modifier etat d'un participant par active
+	@Override
+	public void updateInactiveparActive(Long id) {
+		participantRepository.updateInactiveparActive(id);
+	}
+
+
 
 }

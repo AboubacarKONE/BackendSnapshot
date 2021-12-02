@@ -33,9 +33,6 @@ import java.util.Optional;
 public class ParticipantController {
     @Autowired
     ParticipantService participantService;
-    
-    @Autowired
-    ParticipantRepository participantRepository;
 
     @PostMapping(value="/participant")
     @ApiOperation(value = "Enregistrer un participant", notes = "cette methode permet d'ajouter un participant", response = Participant.class)
@@ -53,6 +50,13 @@ public class ParticipantController {
        participantService.deleteParticipant(id);
       
     }
+    @PutMapping("/changerEtat/{id}")
+    @ApiOperation(value = "charger etat  d'un participant par inactive", notes = "cette methode permet de changer etat  d'un participant par son id")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "le participant a été changer"), @ApiResponse(code = 404, message = "aucun participant avec cet id n'existe dans la BDD") })
+    public void updateParticipant(@PathVariable("id")Long id){
+        participantService.updateParticipant(id);
+    }
+
 
     @PutMapping(path = "/participant/{id}")
     @ApiOperation(value = "Modifier un participant", notes = "cette methode permet de modifier un participant", response = Participant.class)
@@ -63,13 +67,13 @@ public class ParticipantController {
     }
 
     //pour afficher la liste
-    @GetMapping("/participants")
+    @GetMapping("/participants={etat}")
     @ApiOperation(value = "renvoi la liste des particiapnt", notes = "cette methode permet de chercher et renvoyer la liste des participant qui existent"
 			+ "dans la BDD", responseContainer = "list<particiapnt>")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des particiapnt / une liste vide") })
     @ResponseBody
-    public List<Participant> list(){
-        return participantService.listParticipant();
+    public List<Participant> getAllParticipant(@PathVariable("etat") Etat etat){
+        return participantService.findByEtat(etat);
     }
     
     //aficher participant par son id
@@ -78,17 +82,23 @@ public class ParticipantController {
             + "dans la BDD", response = Participant.class)
     @ApiResponses(value = { @ApiResponse(code = 200, message = "participant recuperer") })
     public Participant ParticipantById(@PathVariable("id") Long id) {
-		return participantService.ParticipantById(id);
+		return participantService.findByIdAndEtat(id,Etat.active);
 	}
     
 
     @GetMapping("/participantGenre={genre}")
     public int findByparticipantGenre(@PathVariable("genre") ParticipantGenre genre){
-    	return participantService.findByparticipantGenre(genre);
+    	return participantService.findByparticipantGenreAndEtat(genre);
     }
 
     @PostMapping("/uploadExcel")
     public List <Participant> save(@RequestBody List<Participant> participants){
         return participantService.addManyParticipant(participants);
     }
+    @PutMapping("/updatInactive/{id}")
+    public void changerIupdatInactivenative(@PathVariable("id")Long id){
+        participantService.updateInactiveparActive(id);
+    }
 }
+
+

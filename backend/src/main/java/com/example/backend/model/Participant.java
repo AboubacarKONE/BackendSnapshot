@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.example.backend.enumeration.ParticipantGenre;
+import net.bytebuddy.dynamic.TypeResolutionStrategy;
 
 import java.io.Serializable;
 
@@ -29,7 +30,7 @@ public class Participant implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id_participant;
+	private long id;
 	@NotBlank(message = "Veuillez renseigner le nom du participant...")
 	private String nom_complet;
 	@NotNull(message = "Veuillez renseigner le numéro de téléphone...")
@@ -44,5 +45,4 @@ public class Participant implements Serializable {
 	private Administrateur administrateur;
 	@Enumerated(EnumType.STRING)
 	private Etat etat = Etat.active;
-	
 }
