@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.Exception.ErrorCodes;
 import com.example.backend.Exception.InvalidEntityException;
+import com.example.backend.enumeration.Etat;
 import com.example.backend.model.Administrateur;
 import com.example.backend.service.AdminService;
 import com.example.backend.service.AdminServiceImpl;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+import javax.transaction.Transactional;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/odcmanager/api/v1")
@@ -30,12 +33,12 @@ public class AdminController {
     AdminService adminService;
 
     //la liste globale
-    @GetMapping("/listAdmin")
+    @GetMapping("/listAdminActif")
     @ApiOperation(value = "renvoi la liste des administrateurs", notes = "cette methode permet de chercher et renvoyer la liste des administrateurs qui existent"
 			+ "dans la BDD", responseContainer = "list<Administrateur>")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des administrateurs / une liste vide") })
-    public ResponseEntity<?> list(){
-    return new ResponseEntity<>(adminService.list(), HttpStatus.OK);
+    public ResponseEntity<?> getAllAdministrateur(){
+    return new ResponseEntity<>(adminService.getAllAdministrateur(), HttpStatus.OK);
 }
 
     //l'insertion
@@ -79,8 +82,22 @@ public class AdminController {
     public Optional<Administrateur> loginUser(@PathVariable("login") String login, @PathVariable("password") String password) {
         return adminService.LoginUser(login, password);
     }
+    //liste admin par état
+    @GetMapping("/adminParEtat/{etat}")
+    public List<Administrateur> getAdministrateurByEtat(@PathVariable Etat etat) {
+        return adminService.getAdministrateurByEtat(etat);
+    }
 
-    //public @ResponseBody ResponseEntity<?> deleteAdmin(@PathVariable(value = "id") Long id){
-        //return new ResponseEntity<>(adminService.deleteAdmin(id), HttpStatus.OK);
+        //archiver admin
+        @PutMapping("/archiverAdmin/{id}")
+            public String UpdateAdministrateur (@PathVariable("id") Long id, @RequestBody  Administrateur administrateur){
+                return "mis a jour effectuée";
+            }
 
 }
+
+
+            //public @ResponseBody ResponseEntity<?> deleteAdmin(@PathVariable(value = "id") Long id){
+            //return new ResponseEntity<>(adminService.deleteAdmin(id), HttpStatus.OK);
+
+

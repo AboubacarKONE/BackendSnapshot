@@ -2,6 +2,10 @@ package com.example.backend.controller;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 
+import com.example.backend.model.Participation;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,7 +37,10 @@ public class AuthenticationController {
 	@Autowired
 	private ApplicationUserDetailsService applicationUserDetailsService;
 
-	@PostMapping("/authenticate")
+	@PostMapping("/authentificate")
+	@ApiOperation(value = "créer une authenfication", notes = "cette methode permet de créer un token pour authentification")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Authentification réussie"),
+			@ApiResponse(code = 400, message = "Authentification non réussie") })
 	public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
 		authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword()));
