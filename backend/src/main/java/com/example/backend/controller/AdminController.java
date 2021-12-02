@@ -64,12 +64,6 @@ public class AdminController {
         return new ResponseEntity<>	(adminService.updateAdmin(id, admin), HttpStatus.OK);
     }
 
-    //listeByID
-    @GetMapping("/adminById/{id}")
-    public Administrateur AdminById(@PathVariable Long id) {
-		return adminService.AdminById(id);
-	}
-
     //Suppression
     @DeleteMapping("/deleteAdmin/{id}")
     @ApiOperation(value = "supprimer un administrateur", notes = "cette methode permet de supprimer un administrateur par son id")
@@ -87,7 +81,7 @@ public class AdminController {
 
     //liste admin par état
     @GetMapping("/adminParEtat/{etat}")
-    public List<Administrateur> getAdministrateurByEtat(@PathVariable Etat etat) {
+    public List<Administrateur> getAdministrateurByEtat(@PathVariable("etat") Etat etat) {
         return adminService.getAdministrateurByEtat(etat);
     }
 

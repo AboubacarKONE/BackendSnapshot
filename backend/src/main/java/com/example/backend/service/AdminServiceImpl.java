@@ -2,12 +2,12 @@ package com.example.backend.service;
 
 import com.example.backend.Exception.EntityNotFoundException;
 import com.example.backend.Exception.ErrorCodes;
+import com.example.backend.Exception.InvalidEntityException;
 import com.example.backend.enumeration.Etat;
 import com.example.backend.model.Administrateur;
 import com.example.backend.repository.AdminRepository;
+import com.example.backend.validator.AdministrateurValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,12 +29,29 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Administrateur saveAdmin(Administrateur admin) {
+		List<String> errors= AdministrateurValidator.validator(admin);
+		if (!errors.isEmpty()){
+			throw new InvalidEntityException("l' admin n'est pas valide", ErrorCodes.ADMINISTRATEUR_INVALID, errors);
+		}
 		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
 		return adminRepository.save(admin);
 	}
 
 	@Override
 	public Administrateur updateAdmin(Long id, Administrateur admin) {
+		List<String> errors= AdministrateurValidator.validator(admin);
+		if (!errors.isEmpty()){
+			throw new InvalidEntityException("l' admin à modifier n'est pas valide", ErrorCodes.ADMINISTRATEUR_INVALID, errors);
+		}
+		Administrateur administrateur = adminRepository.getById(id);
+		administrateur.setNom(admin.getNom());
+		administrateur.setPrenom(admin.getPrenom());
+		administrateur.setEmail(admin.getEmail());
+		administrateur.setEtat(admin.getEtat());
+		administrateur.setRoles(admin.getRoles());
+		administrateur.setLogin(admin.getLogin());
+		administrateur.setPassword(admin.getPassword());
+		administrateur.setTelephone(admin.getTelephone());
 		return adminRepository.save(admin);
 	}
 
@@ -53,17 +70,6 @@ public class AdminServiceImpl implements AdminService {
 	public List<Administrateur> getAdministrateurByEtat(Etat etat) {
 		return adminRepository.getAllAdministrateurByEtat(etat) ;
 	}
-
-	@Override
-	public Administrateur AdminById(Long id) {
-		return adminRepository.getAdById(id);
-	}
-
-	@Override
-	public void UpdateAdmin(Long id, Administrateur administrateur) {
-		adminRepository.deleteAdminEtat(id);
-	}
-
 
 	@Override
 	public Administrateur findByEmail(String Email) {
