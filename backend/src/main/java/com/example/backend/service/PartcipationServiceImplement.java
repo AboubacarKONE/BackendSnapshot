@@ -25,7 +25,7 @@ public class PartcipationServiceImplement implements ParticipationService {
 
 	@Override
 	public void deleteParticipation(Long id) {
-		participationRepo.deleteById(id);
+		participationRepo.deleteParticipationEtat(id);
 	}
 
 	@Override
@@ -59,5 +59,10 @@ public class PartcipationServiceImplement implements ParticipationService {
 	@Override
 	public List<Participation> participationByEtat(Etat etat) {
 		return participationRepo.getAllParticipationByEtat(etat);
+	}
+
+	@Override
+	public void restaurer(Long id) {
+		participationRepo.restaurerParticipationEtat(id);
 	}
 }

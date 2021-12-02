@@ -26,9 +26,9 @@ public class AdministrateurValidator {
 		if(!StringUtils.hasLength(admin.getPrenom())) {
 			errors.add("Veuillez renseigner le prenom de l'administrateur");
 		}
-//		if(!StringUtils.hasLength(admin.getLogin())) {
-//			errors.add("Veuillez renseigner le login de l'aministrateur");
-//		}
+		if(!StringUtils.hasLength(admin.getLogin())) {
+			errors.add("Veuillez renseigner le login de l'aministrateur");
+		}
 		if(!StringUtils.hasLength(admin.getEmail())) {
 			errors.add("Veuillez renseigner l'email de l'utilisateur");
 		}

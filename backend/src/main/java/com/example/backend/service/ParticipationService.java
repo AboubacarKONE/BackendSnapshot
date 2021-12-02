@@ -11,11 +11,12 @@ import java.util.List;
 public interface ParticipationService {
 
     public Participation ajouterParticipation(Participation p);
-    void deleteParticipation(Long id);
+    public void deleteParticipation(Long id);
     public void updateParticipation(Long id, Participation p);
     public List<Participation> getAllParticipation();
     public Participation getParticipationById(Long id);
     List<Participation>participantByActivite(Long IdActivite);
     public List<Participation> participationByEtat(Etat etat);
+    public void restaurer(Long id);
 
 }

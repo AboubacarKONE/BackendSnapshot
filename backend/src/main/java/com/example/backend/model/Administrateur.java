@@ -12,6 +12,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -37,7 +38,7 @@ public class Administrateur implements Serializable {
 	private Etat etat;
 	private Long telephone;
 
-	// @NotNull(message = "Veuillez renseigner le rôle...")
+	@NotNull(message = "Veuillez renseigner le rôle...")
 	@OneToMany(mappedBy = "administrateur", fetch = FetchType.EAGER)
 	@JsonProperty(access =Access.WRITE_ONLY)
 	private List<Role> roles;

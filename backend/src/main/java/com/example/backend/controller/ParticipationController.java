@@ -79,4 +79,10 @@ public class ParticipationController {
     public List<Participation> participationByEtat(@PathVariable("etat") Etat etat) {
         return participationService.participationByEtat(etat);
     }
+
+
+    @GetMapping("/restaure/{id}")
+    public void restaurer(@PathVariable("id") Long id) {
+        participationService.restaurer(id);
+    }
 }
