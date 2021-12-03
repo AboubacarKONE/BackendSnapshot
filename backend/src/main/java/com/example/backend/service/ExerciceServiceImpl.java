@@ -54,6 +54,11 @@ public class ExerciceServiceImpl implements ExerciceService{
 		return exerciceRepository.getExerciceByAnnee(annee);
 	}
 
-	
+	@Override
+	public void changeExerciceEtat(Long id) {
+		exerciceRepository.updateExerciceByEtat(id);
+	}
+
+
 
 }

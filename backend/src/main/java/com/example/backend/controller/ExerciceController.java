@@ -59,4 +59,10 @@ public class ExerciceController {
 	        return this.exerciceService.getExerciceByAnnee(annee);
 	    }
 
+		//change exercice etat
+		@PutMapping("/desactiverExercice/{id}")
+		public void changeEtatExercice(@PathVariable Long id){
+			exerciceService.changeExerciceEtat(id);
+		}
+
 }

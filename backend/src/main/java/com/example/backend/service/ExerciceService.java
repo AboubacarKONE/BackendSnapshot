@@ -21,4 +21,6 @@ public interface ExerciceService {
     
     public List<Exercice> getExerciceByAnnee(String annee);
 
+    public void changeExerciceEtat(Long id);
+
 }
