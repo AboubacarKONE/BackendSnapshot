@@ -3,6 +3,8 @@ package com.example.backend.repository;
 import java.util.List;
 
 import com.example.backend.enumeration.Etat;
+import com.example.backend.model.Activite;
+import com.example.backend.model.Responsable;
 import org.hibernate.sql.Update;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -24,10 +26,12 @@ public interface LogActivitesRepository extends JpaRepositoryImplementation<LogA
 	 @Query(value = "SELECT lo FROM LogActivites lo WHERE lo.etat = 'active' ")
 	 List<LogActivites> getAllLogActivite();
 
-@Transactional
-@Modifying
+	@Transactional
+	@Modifying
 	@Query("UPDATE LogActivites  SET etat = 'inactive' WHERE id =:id")
 	void LogActivite (@Param(value = "id") Long id);
+
+  	LogActivites getLogActivitesByResponsableAndActivite(Responsable responsable, Activite activite);
 
 }
 

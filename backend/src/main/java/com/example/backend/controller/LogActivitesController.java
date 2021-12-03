@@ -35,6 +35,9 @@ public class LogActivitesController {
        
     }
 
+
+    
+
 	//lister seul les activites qui sont active
 	  @GetMapping("/listehistorique")
 	  @ApiOperation(value = "lister actives active", notes = "cette methode permet d'afficher un log Activitess", response = LogActivites.class)

@@ -17,7 +17,14 @@ public class LogActivitesServiceImp implements LogActivitesService {
 	//Ajouter un log d'activité
 	@Override
 	public void addLogActivites(LogActivites act) {
-		logActivitesRepository.save(act);
+		LogActivites respond = this.logActivitesRepository.getLogActivitesByResponsableAndActivite(
+				act.getResponsable(), act.getActivite()
+
+		);
+		if(respond == null){
+			logActivitesRepository.save(act);
+		}
+
 	}
 
 	//Lister les activitées
