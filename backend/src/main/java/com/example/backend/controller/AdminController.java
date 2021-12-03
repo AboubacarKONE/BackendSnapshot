@@ -64,25 +64,13 @@ public class AdminController {
         return new ResponseEntity<>	(adminService.updateAdmin(id, admin), HttpStatus.OK);
     }
 
-    //listeByID
-    @GetMapping("/adminById/{id}")
-    public Administrateur AdminById(@PathVariable Long id) {
-		return adminService.AdminById(id);
-	}
-
-    //Suppression par desactivation
-    @PutMapping("/deleteAdmin/{id}")
+    //Suppression
+    @DeleteMapping("/deleteAdmin/{id}")
     @ApiOperation(value = "supprimer un administrateur", notes = "cette methode permet de supprimer un administrateur par son id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'administrateur a été supprimé"),
 			@ApiResponse(code = 404, message = "aucun administrateur avec cet id n'existe dans la BDD") })
     public void delete(@PathVariable(name = "id") Long id){
     	adminService.deleteAdmin(id);
-    }
-
-    //restauration
-    @PutMapping("/resetAdmin/{id}")
-    public void reset(@PathVariable("id") Long id){
-        adminService.resetAdmin(id);
     }
 
     //login
@@ -93,8 +81,14 @@ public class AdminController {
 
     //liste admin par état
     @GetMapping("/adminParEtat/{etat}")
-    public List<Administrateur> getAdministrateurByEtat(@PathVariable Etat etat) {
+    public List<Administrateur> getAdministrateurByEtat(@PathVariable("etat") Etat etat) {
         return adminService.getAdministrateurByEtat(etat);
+    }
+
+    //archiver admin
+    @PutMapping("/archiverAdmin/{id}")
+    public String UpdateAdministrateur (@PathVariable("id") Long id, @RequestBody  Administrateur administrateur){
+        return "mis a jour effectuée";
     }
 
 }

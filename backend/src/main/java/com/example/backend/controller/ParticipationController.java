@@ -85,6 +85,6 @@ public class ParticipationController {
             @ApiResponse(code = 404, message = "Erreur de restauration , verifier votre requette") })
     @PutMapping("/restaure/{id}")
     public void restaurer(@PathVariable("id") Long id) {
-        participationService.restaurer(id);
+         participationService.restaurer(id);
     }
 }

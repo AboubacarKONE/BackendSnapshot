@@ -63,6 +63,6 @@ public class PartcipationServiceImplement implements ParticipationService {
 
 	@Override
 	public void restaurer(Long id) {
-		participationRepo.restaurerParticipationEtat(id);
+		 participationRepo.restaurerParticipationEtat(id);
 	}
 }
