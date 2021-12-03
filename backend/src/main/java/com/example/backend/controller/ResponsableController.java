@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import java.util.List;
 
+import com.example.backend.enumeration.Etat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -64,11 +65,30 @@ public class ResponsableController {
     public Responsable updateResponsable(@PathVariable Long id, @RequestBody Responsable responsable){
         return responsableService.modifier_responsable(id, responsable);
     }
-    @DeleteMapping("/deleteResponsable/{id}")
+    //changement active à inactive
+    @DeleteMapping("/deleteresponsable/{id}")
     @ApiOperation(value = "supprimer un reponsable", notes = "cette methode permet de supprimer un reponsable par son id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "le reponsable a été supprimé"),
 			@ApiResponse(code = 404, message = "aucun reponsable avec cet id n'existe dans la BDD") })
     public void deleteresponsable(@PathVariable Long id) {
         responsableService.supprimer_responsable(id);
+    }
+
+    //changement  inactive à active
+    @DeleteMapping("/restresponsable/{id}")
+    @ApiOperation(value = "supprimer un reponsable", notes = "cette methode permet de supprimer un reponsable par son id")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "le reponsable a été supprimé"),
+            @ApiResponse(code = 404, message = "aucun reponsable avec cet id n'existe dans la BDD") })
+    public void restresponsableetat(@PathVariable Long id) {
+        responsableService.resetresponsable(id);
+    }
+
+    //Affichage par Etat
+    @GetMapping(path = "/respon/{etat}")
+    @ApiOperation(value = "rechercher un responsable", notes = "cette methode permet de rechercher un responsable par son etat", response = Responsable.class)
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "le responsable trouvé dans la BDD"),
+            @ApiResponse(code = 404, message = "aucun responsable avec cet etat n'existe dans la BDD") })
+    public List<Responsable> getResponsablewithEtat(@PathVariable(value= "etat") Etat etat) {
+        return responsableService.list_responsableByEtat(etat);
     }
 }
