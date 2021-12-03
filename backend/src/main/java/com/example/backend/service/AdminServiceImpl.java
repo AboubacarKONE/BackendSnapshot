@@ -29,12 +29,14 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Administrateur saveAdmin(Administrateur admin) {
-		List<String> errors= AdministrateurValidator.validator(admin);
-		if (!errors.isEmpty()){
-			throw new InvalidEntityException("l' admin n'est pas valide", ErrorCodes.ADMINISTRATEUR_INVALID, errors);
+		Optional<Administrateur> optionalAdministrateur = adminRepository.findByEmail(admin.getEmail());
+		if (!optionalAdministrateur.isPresent()){
+			return adminRepository.save(admin);
+
+		}else{
+			throw new InvalidEntityException("l' admin existe déjà", ErrorCodes.ADMINISTRATEUR_INVALID);
 		}
-		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
-		return adminRepository.save(admin);
+
 	}
 
 	@Override
