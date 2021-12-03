@@ -30,7 +30,7 @@ public interface ParticipantRepository  extends JpaRepository<Participant,Long> 
 	//change etat inative par etat active d'un participant
 	@Transactional
 	@Modifying
-	@Query("UPDATE Participant SET etat='active' WHERE id = id")
+	@Query("UPDATE Participant SET etat='active' WHERE id =:id")
 	void  updateInactiveparActive(@Param(value = "id")Long id);
 // list de Participant par etat active
 	List<Participant> findByEtat(Etat etat);
