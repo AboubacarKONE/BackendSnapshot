@@ -18,9 +18,14 @@ public class ActiviteImp implements ActiviteService {
 	ActiviteRepository activiteRepository;
 
 	@Override
-	public String ajouterActivite(Activite activite) {
-		this.activiteRepository.save(activite);
-		return "Ajout Ok" + activite.getType();
+	public void ajouterActivite(Activite activite) {
+		if (activite.getDateDebut().isBefore(activite.getDateFin())){
+			this.activiteRepository.save(activite);
+		}else {
+			System.out.println("Non enregistrer");
+		}
+
+
 	}
 
 	@Override

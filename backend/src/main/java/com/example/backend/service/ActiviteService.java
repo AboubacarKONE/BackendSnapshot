@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 public interface ActiviteService {
-     String ajouterActivite (Activite activite);
+     void ajouterActivite (Activite activite);
      void modifierActivite (Long Id_activite, Activite activite);
      Activite listeById (Long IdActivite, Etat etat);//activite by etat active
      Activite listeByIdInactive (Long id, Etat etat);//activite by etat inactive
