@@ -2,6 +2,7 @@ package com.example.backend.service;
 
 import java.util.List;
 
+import com.example.backend.enumeration.Etat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,13 +40,33 @@ public class ResponsableServiceImp implements ResponsableService {
 
 	@Override
 	public Responsable afficher_responsable_by_id(Long id) {
-		return responsableRepository.findById(id).get();
+		return responsableRepository.findAllResponsableByidandEtat(id);
 	}
 
 	@Override
 	public void supprimer_responsable(Long id) {
-		responsableRepository.deleteById(id);
+		responsableRepository.SupRespByEtatInactive(id);
 		
+	}
+
+	@Override
+	public void resetresponsable(Long id) {
+		responsableRepository.RestaureRespByEtatactive(id);
+	}
+
+	@Override
+	public List<Responsable> list_responsable_active() {
+		return responsableRepository.getallresponsableactive();
+	}
+
+	@Override
+	public List<Responsable> list_responsable_inactive() {
+		return responsableRepository.getallresponsableinactive();
+	}
+
+	@Override
+	public List<Responsable> list_responsableByEtat(Etat etat) {
+		return responsableRepository.getResponsableByEtat(etat);
 	}
 
 }
