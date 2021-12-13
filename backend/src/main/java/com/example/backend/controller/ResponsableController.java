@@ -91,4 +91,21 @@ public class ResponsableController {
     public List<Responsable> getResponsablewithEtat(@PathVariable(value= "etat") Etat etat) {
         return responsableService.list_responsableByEtat(etat);
     }
+    //Affichage de la liste des responsables active
+    @GetMapping("/responsablesactive")
+    @ApiOperation(value = "renvoi la liste des responsables active", notes = "cette methode permet de chercher et renvoyer la liste des responsables qui sont actives"
+            + "dans la BDD", responseContainer = "list<Responsable>")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des responsables / une liste vide") })
+    public List<Responsable> getResponsableactive(){
+        return  responsableService.list_responsable_active();
+    }
+
+    //Affichage de la liste des responsables inactive
+    @GetMapping("/responsablesinactive")
+    @ApiOperation(value = "renvoi la liste des responsables inactive", notes = "cette methode permet de chercher et renvoyer la liste des responsables qui sont inactives"
+            + "dans la BDD", responseContainer = "list<Responsable>")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des responsables / une liste vide") })
+    public List<Responsable> getResponsableinactive(){
+        return  responsableService.list_responsable_inactive();
+    }
 }

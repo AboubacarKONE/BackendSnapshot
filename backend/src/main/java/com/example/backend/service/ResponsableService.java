@@ -13,6 +13,9 @@ public interface ResponsableService {
 	public Responsable afficher_responsable_by_id(Long id);
 	public void supprimer_responsable(Long id);
 	public void resetresponsable(Long id);
+	public  List<Responsable> list_responsable_active();
+	public List<Responsable> list_responsable_inactive();
+
 
 
 }

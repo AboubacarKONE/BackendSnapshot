@@ -55,6 +55,16 @@ public class ResponsableServiceImp implements ResponsableService {
 	}
 
 	@Override
+	public List<Responsable> list_responsable_active() {
+		return responsableRepository.getallresponsableactive();
+	}
+
+	@Override
+	public List<Responsable> list_responsable_inactive() {
+		return responsableRepository.getallresponsableinactive();
+	}
+
+	@Override
 	public List<Responsable> list_responsableByEtat(Etat etat) {
 		return responsableRepository.getResponsableByEtat(etat);
 	}

@@ -18,6 +18,7 @@ public interface ResponsableRepository extends JpaRepository<Responsable, Long> 
     //Afficher responsables dont l'etat est active
     @Query(value = "SELECT respact FROM Responsable respact WHERE respact.id_responsable= :id_responsable AND etat='active' ")
     public Responsable findAllResponsableByidandEtat( @Param("id_responsable") Long id_responsable);
+
 //Afficher les responsables par etat
     @Query(value = "SELECT respetat FROM Responsable respetat WHERE respetat.etat= :etat")
     public List<Responsable> getResponsableByEtat(@Param("etat") Etat etat);
@@ -34,5 +35,12 @@ public interface ResponsableRepository extends JpaRepository<Responsable, Long> 
     @Query(value = "UPDATE  Responsable SET etat= 'active'  WHERE id_responsable= :id_responsable  ")
     public void RestaureRespByEtatactive (@Param("id_responsable") Long id_responsable);
 
+    //Liste globale des responsables dont l'état est active
+    @Query(value = "SELECT Resp FROM Responsable Resp WHERE Resp.etat= 'active'")
+    public List<Responsable> getallresponsableactive();
+
+    //Liste globale des responsables dont l'état est inactive
+    @Query(value = "SELECT Respinactive FROM Responsable Respinactive WHERE Respinactive.etat= 'inactive'")
+    public List<Responsable> getallresponsableinactive();
 
 }
