@@ -14,6 +14,7 @@ public interface ParticipationService {
     public void deleteParticipation(Long id);
     public void updateParticipation(Long id, Participation p);
     public List<Participation> getAllParticipation();
+    public List<Participation> getAllParticipationInactive();
     public Participation getParticipationById(Long id);
     List<Participation>participantByActivite(Long IdActivite);
     public List<Participation> participationByEtat(Etat etat);

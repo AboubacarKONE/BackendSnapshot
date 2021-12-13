@@ -55,6 +55,14 @@ public class ParticipationController {
         return participationService.getAllParticipation();
     }
 
+    @GetMapping("/listeParticipationInactive")
+    @ApiOperation(value = "renvoi la liste des participations dont l'etat est inactive", notes = "cette methode permet de chercher et renvoyer la liste des participations dont l'etat est inactive"
+          , responseContainer = "liste<Participation>")
+    @ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des participations / une liste vide") })
+    public List<Participation> getAllParticipationInactive() {
+        return participationService.getAllParticipationInactive();
+    }
+
     @GetMapping("/getParticipation/{id}")
     @ApiOperation(value = "rechercher un participation dont l'etat est active", notes = "cette methode permet de rechercher un participant dont l'etat est active par son id", response = Participation.class)
     @ApiResponses(value = { @ApiResponse(code = 200, message = "l'apprenant trouvé dans la BDD"),

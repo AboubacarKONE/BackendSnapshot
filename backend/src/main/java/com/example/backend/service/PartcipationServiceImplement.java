@@ -47,6 +47,11 @@ public class PartcipationServiceImplement implements ParticipationService {
 	}
 
 	@Override
+	public List<Participation> getAllParticipationInactive() {
+		return participationRepo.getAllParticipationInactive();
+	}
+
+	@Override
 	public Participation getParticipationById(Long id) {
 		return participationRepo.getPartById(id);
 	}

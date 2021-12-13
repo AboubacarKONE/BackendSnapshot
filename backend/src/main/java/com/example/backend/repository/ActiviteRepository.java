@@ -4,7 +4,9 @@ import com.example.backend.model.Activite;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
+import com.example.backend.model.Administrateur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RepositoryRestResource
 @CrossOrigin("*")
 public interface ActiviteRepository extends JpaRepository<Activite, Long> {
+	@Query(value = "select u from Activite u where u.libelle = :libelle")
+	Optional<Activite> findByLibelle(@Param("libelle") String libelle);
+
 	@Query(value="SELECT p FROM Activite p WHERE p.exercice.annee=:annee")
 	List<Activite>findActiviteByAnnee(@Param("annee") String annee);
 	List<Activite> getActiviteByDateDebutGreaterThanEqualAndDateDebutLessThanEqual(LocalDate start, LocalDate end);

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin("*")
 public interface ParticipationRepo extends JpaRepository<Participation, Long> {
@@ -19,6 +20,9 @@ public interface ParticipationRepo extends JpaRepository<Participation, Long> {
 
     @Query(value = "SELECT a FROM Participation a WHERE a.etat = 'active' ")
     List<Participation> getAllParticipation();
+
+    @Query(value = "SELECT a FROM Participation a WHERE a.etat = 'inactive' ")
+    List<Participation> getAllParticipationInactive();
 
     @Query(value = "SELECT par FROM Participation par WHERE par.id_participation = :id_participation AND par.etat = 'active' ")
     Participation getPartById(@Param("id_participation")Long id_participation);

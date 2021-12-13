@@ -1,13 +1,19 @@
 package com.example.backend.service;
 
+import com.example.backend.Exception.ErrorCodes;
+import com.example.backend.Exception.InvalidEntityException;
 import com.example.backend.model.Activite;
+import com.example.backend.model.Administrateur;
 import com.example.backend.repository.ActiviteRepository;
+import com.example.backend.validator.ActiviteValidator;
+import com.example.backend.validator.AdministrateurValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ActiviteImp implements ActiviteService {
@@ -16,13 +22,22 @@ public class ActiviteImp implements ActiviteService {
 
 	@Override
 	public String ajouterActivite(Activite activite) {
-		this.activiteRepository.save(activite);
-		return "Ajout Ok" + activite.getType();
+		Optional<Activite> optionalActivite = activiteRepository.findByLibelle(activite.getLibelle());
+		if (!optionalActivite.isPresent()){
+			activiteRepository.save(activite);
+			return "Ajout Ok" + activite.getType();
+		}else{
+			throw new InvalidEntityException("l' activité: " + activite.getLibelle() + " existe déjà");
+		}
 	}
 
 	@Override
 	@Transactional
 	public void modifierActivite(Long Id, Activite activite) {
+		List<String> errors= ActiviteValidator.validator(activite);
+		if (!errors.isEmpty()){
+			throw new InvalidEntityException("l' activité  " + activite.getIdActivite() +" n'est pas valide");
+		}
 		Activite activiteAncien = activiteRepository.findById(Id).get();
 		activiteAncien.setLibelle(activite.getLibelle());
 		activiteAncien.setType(activite.getType());
@@ -49,7 +64,6 @@ public class ActiviteImp implements ActiviteService {
 
 	@Override
 	public List<Activite> findActiviteByAnnee(String annee) {
-
 		return activiteRepository.findActiviteByAnnee(annee);
 	}
 
