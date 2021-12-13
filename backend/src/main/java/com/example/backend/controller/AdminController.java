@@ -32,13 +32,19 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    //la liste globale
+    //la liste Active
     @GetMapping("/listAdminActif")
-    @ApiOperation(value = "renvoi la liste des administrateurs", notes = "cette methode permet de chercher et renvoyer la liste des administrateurs qui existent"
+    @ApiOperation(value = "renvoi la liste des administrateurs", notes = "cette methode permet de chercher et renvoyer la liste des administrateurs qui sont inactifs"
 			+ "dans la BDD", responseContainer = "list<Administrateur>")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des administrateurs / une liste vide") })
     public ResponseEntity<?> getAllAdministrateur(){
     return new ResponseEntity<>(adminService.getAllAdministrateur(), HttpStatus.OK);
+}
+
+//liste admin Inactif
+@GetMapping("/listAdminInactif")
+public ResponseEntity<?> getAllAdministrateurInactive(){
+        return new ResponseEntity<>(adminService.getAllAdministrateurInactive(), HttpStatus.OK);
 }
 
     //l'insertion

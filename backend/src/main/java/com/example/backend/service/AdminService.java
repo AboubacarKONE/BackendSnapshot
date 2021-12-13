@@ -9,6 +9,7 @@ import com.example.backend.model.Participation;
 
 public interface AdminService {
 	 public List<Administrateur> getAllAdministrateur();
+	public List<Administrateur> getAllAdministrateurInactive();
 	 Administrateur saveAdmin(Administrateur admin);
 	 Administrateur updateAdmin(Long id, Administrateur admin);
 	 public Administrateur getAdById(Long id);

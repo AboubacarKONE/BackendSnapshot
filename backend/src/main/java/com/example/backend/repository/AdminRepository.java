@@ -29,6 +29,9 @@ public interface AdminRepository extends JpaRepository<Administrateur, Long> {
 	@Query(value = "SELECT ad FROM Administrateur ad WHERE ad.etat = 'active' ")
 	List<Administrateur>getAllAdministrateur();
 
+	@Query(value = "SELECT ad FROM Administrateur ad WHERE ad.etat = 'inactive' ")
+	List<Administrateur>getAllAdministrateurInactive();
+
 	@Query(value = "SELECT ad FROM Administrateur ad  WHERE ad.id = :id AND ad.etat = 'active' ")
 	Administrateur getAdById(@Param("id")Long id);
 

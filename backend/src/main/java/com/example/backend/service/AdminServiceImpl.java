@@ -28,6 +28,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public List<Administrateur> getAllAdministrateurInactive() {
+		return null;
+	}
+
+	@Override
 	public Administrateur saveAdmin(Administrateur admin) {
 		Optional<Administrateur> optionalAdministrateur = adminRepository.findByEmail(admin.getEmail());
 		if (!optionalAdministrateur.isPresent()){
