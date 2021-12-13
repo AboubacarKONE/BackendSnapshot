@@ -47,9 +47,4 @@ public class PartcipationServiceImplement implements ParticipationService {
 	public Participation getParticipationById(Long id) {
 		return participationRepo.findById(id).get();
 	}
-
-	@Override
-	public List<Participation> participantByActivite(Long IdActivite) {
-		return participationRepo.getParticipationByActiviteAndEtat(IdActivite);
-	}
 }

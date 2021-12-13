@@ -6,7 +6,6 @@ import com.example.backend.repository.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,23 +62,6 @@ public class ParticipantServiceImplement implements ParticipantService {
 	@Override
 	public int findByparticipantGenre(ParticipantGenre genre) {
 		return participantRepository.findByparticipantGenre(genre);
-	}
-
-	@Override
-	public List<Participant> addManyParticipant(List<Participant> participants) {
-		List<Participant> list = new ArrayList<>();
-		for(int i=0; i<participants.size(); i++){
-			System.out.println(participants.get(i));
-			Participant part = new Participant();
-			part.setNom_complet(participants.get(i).getNom_complet());
-			part.setStructure(participants.get(i).getStructure());
-			part.setEmail(participants.get(i).getEmail());
-			part.setDomaine(participants.get(i).getDomaine());
-			part.setTelephone(participants.get(i).getTelephone());
-			Participant p = participantRepository.saveAndFlush(part);
-			list.add(p);
-		}
-		return list;
 	}
 
 }

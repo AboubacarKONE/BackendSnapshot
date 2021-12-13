@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,7 @@ public class ResponsableController {
 	
 	//Affichage de la liste
     @GetMapping("/responsables")
+    @PostAuthorize("hasAuthority('LISTER')")
     @ApiOperation(value = "renvoi la liste des responsables", notes = "cette methode permet de chercher et renvoyer la liste des responsables qui existent"
 			+ "dans la BDD", responseContainer = "list<Responsable>")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des responsables / une liste vide") })
@@ -40,6 +42,7 @@ public class ResponsableController {
     
     //Affichage par id
     @GetMapping(path = "/responsable/{id}")
+    @PostAuthorize("hasAuthority('LISTER')")
     @ApiOperation(value = "rechercher un responsable", notes = "cette methode permet de rechercher un responsable par son id", response = Responsable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "le responsable trouvé dans la BDD"),
 			@ApiResponse(code = 404, message = "aucun responsable avec cet id n'existe dans la BDD") })
@@ -49,6 +52,7 @@ public class ResponsableController {
     
     //Ajout d'un responsable
     @PostMapping(path="/saveResponsable")
+    @PostAuthorize("hasAuthority('AJOUTER')")
     @ApiOperation(value = "Enregistrer un responsable", notes = "cette methode permet d'ajouter un responsable", response = Responsable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'objet responsable cree"),
 			@ApiResponse(code = 400, message = "l'objet responsable n'est pas valide") })
@@ -58,6 +62,7 @@ public class ResponsableController {
 
     //Modification d'un responsable par son id
     @PutMapping("/updateResponsable/{id}")
+    @PostAuthorize("hasAuthority('MODIFIER')")
     @ApiOperation(value = "Modifier un reponsable", notes = "cette methode permet de modifier un reponsable", response = Responsable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'objet reponsable modifié"),
 			@ApiResponse(code = 400, message = "l'objet reponsable n'est pas valide") })
@@ -65,6 +70,7 @@ public class ResponsableController {
         return responsableService.modifier_responsable(id, responsable);
     }
     @DeleteMapping("/deleteResponsable/{id}")
+    @PostAuthorize("hasAuthority('SUPPRIMER')")
     @ApiOperation(value = "supprimer un reponsable", notes = "cette methode permet de supprimer un reponsable par son id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "le reponsable a été supprimé"),
 			@ApiResponse(code = 404, message = "aucun reponsable avec cet id n'existe dans la BDD") })

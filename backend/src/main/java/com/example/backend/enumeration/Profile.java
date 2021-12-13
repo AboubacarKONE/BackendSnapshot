@@ -1,5 +1,5 @@
 package com.example.backend.enumeration;
 
-public enum Etat {
-    active, inactive
+public enum Profile {
+ ADMIN,SUPER_ADMIN
 }

@@ -1,5 +1,6 @@
 package com.example.backend.repository;
 
+import com.example.backend.enumeration.Profile;
 import com.example.backend.model.Administrateur;
 
 import java.util.List;
@@ -19,5 +20,8 @@ public interface AdminRepository extends JpaRepository<Administrateur, Long> {
 	//List<Administrateur>findAllByRoleId(Long id);
 	@Query(value="select u from Administrateur u where u.email = :email")
     Optional<Administrateur>findByEmail(@Param("email") String email);
-	Optional<Administrateur> getUserByLoginAndPassword( String login, String password);
+	
+	List<Administrateur>findByProfile(Profile profile);
+	
+	
 }

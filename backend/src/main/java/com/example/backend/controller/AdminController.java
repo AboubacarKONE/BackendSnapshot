@@ -11,11 +11,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -31,6 +31,7 @@ public class AdminController {
 
     //la liste globale
     @GetMapping("/listAdmin")
+    @PostAuthorize("hasAuthority('LISTER')")
     @ApiOperation(value = "renvoi la liste des administrateurs", notes = "cette methode permet de chercher et renvoyer la liste des administrateurs qui existent"
 			+ "dans la BDD", responseContainer = "list<Administrateur>")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des administrateurs / une liste vide") })
@@ -40,6 +41,7 @@ public class AdminController {
 
     //l'insertion
     @PostMapping("/saveAdmin")
+    @PostAuthorize("hasAuthority('AJOUTER')")
     @ApiOperation(value = "Enregistrer un administrateur", notes = "cette methode permet d'ajouter un administrateur", response = Administrateur.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'objet administrateur cree"),
 			@ApiResponse(code = 400, message = "l'objet administrateur n'est pas valide") })
@@ -53,6 +55,7 @@ public class AdminController {
 
     //la modification
     @PutMapping("/updateAdmin/{id}")
+    @PostAuthorize("hasAuthority('MODIFIER')")
     @ApiOperation(value = "Modifier un administrateur", notes = "cette methode permet de modifier un administrateur", response = Administrateur.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'objet administrateur modifié"),
 			@ApiResponse(code = 400, message = "l'objet administrateur n'est pas valide") })
@@ -62,22 +65,19 @@ public class AdminController {
     }
     //listeByID
     @GetMapping("/adminById/{id}")
+    @PostAuthorize("hasAuthority('LISTER')")
     public Administrateur AdminById(@PathVariable Long id) {
 		return adminService.AdminById(id);
 	}
 
     //Suppression
     @DeleteMapping("/deleteAdmin/{id}")
+    @PostAuthorize("hasAuthority('SUPPRIMER')")
     @ApiOperation(value = "supprimer un administrateur", notes = "cette methode permet de supprimer un administrateur par son id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'administrateur a été supprimé"),
 			@ApiResponse(code = 404, message = "aucun administrateur avec cet id n'existe dans la BDD") })
     public void delete(@PathVariable(name = "id") Long id){
     	adminService.deleteAdmin(id);
-    }
-    //login
-    @GetMapping("/login/{login}&{password}")
-    public Optional<Administrateur> loginUser(@PathVariable("login") String login, @PathVariable("password") String password) {
-        return adminService.LoginUser(login, password);
     }
 
     //public @ResponseBody ResponseEntity<?> deleteAdmin(@PathVariable(value = "id") Long id){

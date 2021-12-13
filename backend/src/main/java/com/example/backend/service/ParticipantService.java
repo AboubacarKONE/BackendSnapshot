@@ -10,5 +10,4 @@ public interface ParticipantService {
     void deleteParticipant( Long id);
     Participant ParticipantById(Long id);
     int findByparticipantGenre(ParticipantGenre genre);
-    public List<Participant> addManyParticipant(List<Participant> participants);
 }

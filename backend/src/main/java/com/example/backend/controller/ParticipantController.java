@@ -1,5 +1,4 @@
 package com.example.backend.controller;
-import com.example.backend.enumeration.Etat;
 import com.example.backend.enumeration.ParticipantGenre;
 import com.example.backend.model.Participant;
 import com.example.backend.repository.ParticipantRepository;
@@ -18,6 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,6 +38,7 @@ public class ParticipantController {
     ParticipantRepository participantRepository;
 
     @PostMapping(value="/participant")
+    @PostAuthorize("hasAuthority('AJOUTER')")
     @ApiOperation(value = "Enregistrer un participant", notes = "cette methode permet d'ajouter un participant", response = Participant.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'objet participant cree"),
 			@ApiResponse(code = 400, message = "l'objet participant n'est pas valide") })
@@ -46,6 +47,7 @@ public class ParticipantController {
         
     }
     @DeleteMapping(value = "/deleteParticipant/{id}")
+    @PostAuthorize("hasAuthority('SUPPRIMER')")
     @ApiOperation(value = "supprimer un participant", notes = "cette methode permet de supprimer un participant par son id")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "le participant a été supprimé"),
 			@ApiResponse(code = 404, message = "aucun participant avec cet id n'existe dans la BDD") })
@@ -55,6 +57,7 @@ public class ParticipantController {
     }
 
     @PutMapping(path = "/participant/{id}")
+    @PostAuthorize("hasAuthority('MODIFIER')")
     @ApiOperation(value = "Modifier un participant", notes = "cette methode permet de modifier un participant", response = Participant.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'objet participant modifié"),
 			@ApiResponse(code = 400, message = "l'objet participant n'est pas valide") })
@@ -64,6 +67,7 @@ public class ParticipantController {
 
     //pour afficher la liste
     @GetMapping("/participants")
+    @PostAuthorize("hasAuthority('LISTER')")
     @ApiOperation(value = "renvoi la liste des particiapnt", notes = "cette methode permet de chercher et renvoyer la liste des participant qui existent"
 			+ "dans la BDD", responseContainer = "list<particiapnt>")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des particiapnt / une liste vide") })
@@ -72,15 +76,18 @@ public class ParticipantController {
         return participantService.listParticipant();
     }
     
-    //aficher participant par son id
+    //afficher participant par son id
     @GetMapping("/participantById/{id}")
+    @PostAuthorize("hasAuthority('LISTER')")
     public Participant ParticipantById(@PathVariable("id") Long id) {
 		return participantService.ParticipantById(id);
 	}
     
     @PostMapping("/uploadexcel")
+    @PostAuthorize("hasAuthority('IMPORTER')")
     public List<Participant> importExcelFile(@RequestParam("file") MultipartFile files) throws IOException, IOException {
         List<Participant> participants = new ArrayList<>();
+        System.out.println(files);
 
         XSSFWorkbook workbook = new XSSFWorkbook(files.getInputStream());
 
@@ -123,11 +130,8 @@ public class ParticipantController {
         return result;
     }
     @GetMapping("/participantGenre={genre}")
+    @PostAuthorize("hasAuthority('LISTER')")
     public int findByparticipantGenre(@PathVariable("genre") ParticipantGenre genre){
     	return participantService.findByparticipantGenre(genre);
-    }
-    @PostMapping("/many/participant/save")
-    public List <Participant> save(@RequestBody List<Participant> participants){
-        return participantService.addManyParticipant(participants);
     }
 }

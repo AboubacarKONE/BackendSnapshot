@@ -6,7 +6,9 @@
 package com.example.backend.service;
 
 
-import com.example.backend.model.Role;
+
+import com.example.backend.model.Roles;
+
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -18,12 +20,12 @@ import org.springframework.stereotype.Service;
 @Service
 public interface RoleService {
     
-   public Role ajouter_role (Role role);
-   public Role modifier_role (Long Id, Role role);
+   public Roles ajouter_role (Roles role);
+   public Roles modifier_role (Long Id, Roles role);
    void suprimer_role (Long Id);
-   public List <Role> listeRole();
-   public Role getRoleById (Long id);
-   public Role verifie_role (String libelle);
+   public List <Roles> listeRole();
+   public Roles getRoleById (Long id);
+   public Roles verifie_role (String libelle);
     
 
 }

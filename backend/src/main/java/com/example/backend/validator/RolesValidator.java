@@ -4,18 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.util.StringUtils;
+import com.example.backend.model.Roles;
 
-import com.example.backend.model.Role;
-
-public class RoleValidator {
-	public static List<String>validator(Role role){
+public class RolesValidator {
+	public static List<String>validator(Roles role){
 		List<String>errors=new ArrayList<String>();
 		if(role == null) {
-			errors.add("Veuillez renseigner la description du role");
 			errors.add("Veuillez renseigner le libelle du role");
-		}
-		if(!StringUtils.hasLength(role.getDescription())) {
-			errors.add("Veuillez renseigner la description du role");
 		}
 		if(!StringUtils.hasLength(role.getLibelle())) {
 			errors.add("Veuillez renseigner le libelle du role");

@@ -1,6 +1,5 @@
 package com.example.backend.model;
 
-import com.example.backend.enumeration.Etat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +26,4 @@ public class Participation {
     private boolean presence;
     @ManyToOne
     private Administrateur administrateur;
-    @Enumerated(EnumType.STRING)
-    private Etat etat = Etat.active;
 }

@@ -1,6 +1,5 @@
 package com.example.backend.model;
 
-import com.example.backend.enumeration.Etat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,7 +41,5 @@ public class Participant implements Serializable {
 	private ParticipantGenre participantGenre;
 	@ManyToOne
 	private Administrateur administrateur;
-	@Enumerated(EnumType.STRING)
-	private Etat etat = Etat.active;
 	
 }

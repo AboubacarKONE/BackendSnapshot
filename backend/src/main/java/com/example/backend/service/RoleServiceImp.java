@@ -10,10 +10,10 @@ import com.example.backend.Exception.ErrorCodes;
 import com.example.backend.Exception.InvalidEntityException;
 import com.example.backend.Exception.InvalidOperationException;
 import com.example.backend.model.Administrateur;
-import com.example.backend.model.Role;
+import com.example.backend.model.Roles;
 import com.example.backend.repository.AdminRepository;
 import com.example.backend.repository.RoleRepository;
-import com.example.backend.validator.RoleValidator;
+import com.example.backend.validator.RolesValidator;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,8 +34,8 @@ public class RoleServiceImp implements RoleService {
 	private AdminRepository adminRepository;
 
 	@Override
-	public Role ajouter_role(Role role) {
-		List<String> errors = RoleValidator.validator(role);
+	public Roles ajouter_role(Roles role) {
+		List<String> errors = RolesValidator.validator(role);
 		if (!errors.isEmpty()) {
 			throw new InvalidEntityException("le role n'est pas valide", ErrorCodes.ROLE_INVALID, errors);
 		}
@@ -43,14 +43,13 @@ public class RoleServiceImp implements RoleService {
 	}
 
 	@Override
-	public Role modifier_role(Long id, Role role) {
-		List<String> errors = RoleValidator.validator(role);
+	public Roles modifier_role(Long id, Roles role) {
+		List<String> errors = RolesValidator.validator(role);
 		if (!errors.isEmpty()) {
 			throw new InvalidEntityException("le role a mettre à jour n'est pas valide", ErrorCodes.ROLE_INVALID,
 					errors);
 		}
-		Role roleR = rolerepository.getById(id);
-		roleR.setDescription(role.getDescription());
+		Roles roleR = rolerepository.getById(id);
 		roleR.setLibelle(role.getLibelle());
 		return rolerepository.save(roleR);
 	}
@@ -66,19 +65,19 @@ public class RoleServiceImp implements RoleService {
 	}
 
 	@Override
-	public List<Role> listeRole() {
+	public List<Roles> listeRole() {
 		return rolerepository.findAll();
 	}
 
 	@Override
-	public Role getRoleById(Long id) {
+	public Roles getRoleById(Long id) {
 		return rolerepository.findById(id).orElseThrow(()-> new EntityNotFoundException(
 				"Aucun role avec l'id = " + id + " n'a ete trouvé dans la BDD", ErrorCodes.ROLE_NOT_FOUND)
 				);
 	}
 
 	@Override
-	public Role verifie_role(String libelle) {
+	public Roles verifie_role(String libelle) {
 		return rolerepository.findByLibelle(libelle);
 	}
 
