@@ -58,7 +58,7 @@ public class ParticipantServiceImplement implements ParticipantService {
 
 	@Override
 	public void recupere (Long id_participant) {
-		participantRepository.recpere(id_participant);
+		participantRepository.recupere(id_participant);
 	}
 
 

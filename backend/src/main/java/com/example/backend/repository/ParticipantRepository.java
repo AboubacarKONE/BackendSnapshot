@@ -38,5 +38,5 @@ public interface ParticipantRepository  extends JpaRepository<Participant,Long> 
 	@Transactional
 	@Modifying
 	@Query("UPDATE Participant SET etat='actvie' WHERE id_participant=:id_participant")
-	void recpere(Long id_participant);
+	void recupere(Long id_participant);
 }
