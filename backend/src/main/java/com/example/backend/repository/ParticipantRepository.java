@@ -2,10 +2,6 @@ package com.example.backend.repository;
 
 import com.example.backend.enumeration.ParticipantGenre;
 import com.example.backend.model.Participant;
-
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +9,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import java.util.List;
+import java.util.Optional;
 
 @RepositoryRestResource
 @CrossOrigin("*")
@@ -38,5 +37,5 @@ public interface ParticipantRepository  extends JpaRepository<Participant,Long> 
 	@Transactional
 	@Modifying
 	@Query("UPDATE Participant SET etat='actvie' WHERE id_participant=:id_participant")
-	void recpere(Long id_participant);
+	void recupere(Long id_participant);
 }

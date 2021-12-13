@@ -58,7 +58,7 @@ public class ParticipantServiceImplement implements ParticipantService {
 
 	@Override
 	public void recupere (Long id_participant) {
-		participantRepository.recpere(id_participant);
+		participantRepository.recupere(id_participant);
 	}
 
 
@@ -68,8 +68,8 @@ public class ParticipantServiceImplement implements ParticipantService {
 	}
 
 	@Override
-	public int findByparticipantGenre(ParticipantGenre genre) {
-		return participantRepository.findByparticipantGenre(genre);
+	public int findByparticipantGenre(ParticipantGenre participantGenre) {
+		return participantRepository.findByparticipantGenre(participantGenre);
 	}
 
 	@Override
