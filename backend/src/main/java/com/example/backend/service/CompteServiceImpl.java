@@ -36,6 +36,16 @@ public class CompteServiceImpl implements CompteService {
 	 return admin;
 		
 	}
+	@Override
+	public void deleteRoleFromAdmin(Profile profile, String roleName) {
+		List<Administrateur> admin = adminRepository.findByProfile(profile);
+		Roles rol = roleRepository.findByLibelle(roleName);
+		admin.stream().forEach(del->{
+			if(del.getRoles().contains(rol)) {
+				del.getRoles().remove(rol);
+			}
+		});
+	}
 	
 
 

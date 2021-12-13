@@ -1,11 +1,13 @@
 package com.example.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.backend.enumeration.Profile;
 import com.example.backend.model.AdminRoleForm;
 import com.example.backend.service.CompteService;
 
@@ -17,6 +19,10 @@ public class CompteController {
 	@PostMapping(path="/AddRoleAdmin")
 	void AddAdminToUser(@RequestBody AdminRoleForm adminRoleForm) {
 		compteService.AddAdminToRole(adminRoleForm.getProfile(), adminRoleForm.getRoleName());
+	}
+	@DeleteMapping("/deleteRoleFromAdmin")
+	void deleteRoleFromAdmin(@RequestBody AdminRoleForm adminRoleForm) {
+		compteService.deleteRoleFromAdmin(adminRoleForm.getProfile(),adminRoleForm.getRoleName());
 	}
 
 }
