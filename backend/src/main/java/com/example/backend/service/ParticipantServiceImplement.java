@@ -1,8 +1,13 @@
 package com.example.backend.service;
 
+import com.example.backend.Exception.ErrorCodes;
+import com.example.backend.Exception.InvalidEntityException;
 import com.example.backend.enumeration.ParticipantGenre;
 import com.example.backend.model.Participant;
 import com.example.backend.repository.ParticipantRepository;
+import com.example.backend.validator.ParticipantValidator;
+import com.example.backend.validator.ParticipationValidator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +22,10 @@ public class ParticipantServiceImplement implements ParticipantService {
 
 	@Override
 	public String addParticipant(Participant participant) {
+		List<String>errors = ParticipantValidator.validator(participant);
+		if(!errors.isEmpty()) {
+			throw new InvalidEntityException("la participant n'est pas valide", ErrorCodes.PARTICIPANT_INVALID, errors);
+		}
 		Optional<Participant> optionalParticipant = this.participantRepository.findParticipant(participant.getEmail());
 
 		//vérifier si email existe dans la base
@@ -35,6 +44,10 @@ public class ParticipantServiceImplement implements ParticipantService {
 	// mettre a jour de participant
 	public Participant updateParticipant(Long id, Participant participant) {
 		// return participantRepository.save(participant);
+		List<String>errors = ParticipantValidator.validator(participant);
+		if(!errors.isEmpty()) {
+			throw new InvalidEntityException("la participant n'est pas valide", ErrorCodes.PARTICIPANT_INVALID, errors);
+		}
 		Participant mod = participantRepository.getById(id);
 		mod.setNom_complet(participant.getNom_complet());
 		mod.setEmail(participant.getEmail());

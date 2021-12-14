@@ -13,10 +13,10 @@ public class ParticipationValidator {
         if(participation==null){
             error.add("Veuillez renseigner tous les champs ");
         }
-        if(participation.getActivite()==null || participation.getActivite()==null){
-            error.add("Veuillez renseigner l'activite ");
+        if(participation.getActivite()==null || participation.getActivite().getId()==null) {
+        	error.add("Veuillez renseigner l'activite");
         }
-        if(participation.getParticipant()==null || participation.getParticipant().getNom_complet()==null){
+        if(participation.getParticipant()==null || participation.getParticipant().getId()==null){
             error.add("Veuillez renseigner le participant ");
         }
 

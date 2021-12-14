@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.backend.Exception.EntityNotFoundException;
 import com.example.backend.Exception.ErrorCodes;
 import com.example.backend.Exception.InvalidOperationException;
 import com.example.backend.model.Exercice;
@@ -22,8 +23,8 @@ public class ExerciceServiceImpl implements ExerciceService{
 
 	@Override
 	public void ajoutExercice(Exercice exercice) {
-		Exercice exo = this.exerciceRepository.getExerciceByAnnee(exercice.getAnnee());
-		if(exo != null){
+		Optional<Exercice> exo = this.exerciceRepository.getExerciceByAnnee(exercice.getAnnee());
+		if(exo.isPresent()){
 		 throw new InvalidOperationException("cet exercice existe deja", ErrorCodes.EXERCICE_ALREADY_EXISTE);
 		}
 		exerciceRepository.save(exercice);
@@ -64,7 +65,9 @@ public class ExerciceServiceImpl implements ExerciceService{
 
 	@Override
 	public Exercice getExerciceByAnnee(String annee) {
-		return exerciceRepository.getExerciceByAnnee(annee);
+		return exerciceRepository.getExerciceByAnnee(annee).orElseThrow(()->{
+			throw new EntityNotFoundException("aucun exercice avec cet annee "+ annee + " n'existe dans la BDD", ErrorCodes.EXERCICE_NOT_FOUND);
+		});
 	}
 
 	@Override

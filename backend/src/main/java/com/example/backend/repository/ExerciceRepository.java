@@ -18,7 +18,7 @@ import com.example.backend.model.Exercice;
 @CrossOrigin("*")
 public interface ExerciceRepository extends JpaRepository<Exercice, Long>{
 	@Query(value="select Ex from Exercice Ex where Ex.annee = :annee AND Ex.etat = 'active'")
-	Exercice getExerciceByAnnee(String annee);
+	Optional<Exercice> getExerciceByAnnee(String annee);
 
 	@Query(value = "SELECT Ex FROM Exercice Ex WHERE Ex.etat = 'active' ")
 	List<Exercice> getAllExercice();

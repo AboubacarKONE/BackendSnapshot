@@ -1,8 +1,13 @@
 package com.example.backend.service;
 
+import com.example.backend.Exception.ErrorCodes;
+import com.example.backend.Exception.InvalidEntityException;
 import com.example.backend.enumeration.Etat;
 import com.example.backend.model.Participation;
 import com.example.backend.repository.ParticipationRepo;
+import com.example.backend.validator.ParticipantValidator;
+import com.example.backend.validator.ParticipationValidator;
+
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +25,10 @@ public class PartcipationServiceImplement implements ParticipationService {
 
 	@Override
 	public Participation ajouterParticipation(Participation p) {
-		p.getActivite().getId();
+		List<String>errors = ParticipationValidator.validator(p);
+		if(!errors.isEmpty()) {
+			throw new InvalidEntityException("la participation n'est pas valide", ErrorCodes.PARTICIPATION_INVALID, errors);
+		}
 		return participationRepo.save(p);
 	}
 
@@ -32,6 +40,10 @@ public class PartcipationServiceImplement implements ParticipationService {
 	@Override
 	@Transactional
 	public void updateParticipation(Long id, Participation p) {
+		List<String>errors = ParticipationValidator.validator(p);
+		if(!errors.isEmpty()) {
+			throw new InvalidEntityException("la participation n'est pas valide", ErrorCodes.PARTICIPATION_INVALID, errors);
+		}
 		Participation APP = participationRepo.findById(id).get();
 		System.out.println(id);
 		APP.setHeure_arriver(p.getHeure_arriver());
