@@ -72,7 +72,7 @@ public class ParticipantController {
 			+ "dans la BDD", responseContainer = "list<particiapnt>")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des particiapnt / une liste vide") })
     @ResponseBody
-    public List<Participant> list(){
+    public List<Participant> listParticipant(){
         return participantService.listParticipant();
     }
     
@@ -133,5 +133,24 @@ public class ParticipantController {
     @PostAuthorize("hasAuthority('LISTER')")
     public int findByparticipantGenre(@PathVariable("genre") ParticipantGenre genre){
     	return participantService.findByparticipantGenre(genre);
+    }
+
+    @PutMapping("/supprimer/{id}")
+    @PostAuthorize("hasAuthority('LISTER')")
+    public void supprimer(@PathVariable("id")Long id_participant){
+        participantService.supprimer(id_participant);
+    };
+
+    @PutMapping("/recuperer/{id}")
+    @PostAuthorize("hasAuthority('LISTER')")
+    public void recupere(@PathVariable("id")Long id_participant){
+        participantService.recupere(id_participant);
+    };
+
+
+    @GetMapping("/corbeille")
+    @PostAuthorize("hasAuthority('LISTER')")
+    public List<Participant>corbeille(){
+        return participantService.corbeille();
     }
 }

@@ -6,7 +6,7 @@ import com.example.backend.model.Administrateur;
 
 public interface AdminService {
 	 List<Administrateur> list();
-	 String saveAdmin(Administrateur admin);
+	 Administrateur saveAdmin(Administrateur admin);
 	 Administrateur updateAdmin(Long id, Administrateur admin);
 	 Administrateur AdminById(Long id);
 	 void deleteAdmin(Long id);

@@ -3,21 +3,16 @@ package com.example.backend.service;
 import com.example.backend.Exception.EntityNotFoundException;
 import com.example.backend.Exception.ErrorCodes;
 import com.example.backend.Exception.InvalidEntityException;
-import com.example.backend.enumeration.Profile;
 import com.example.backend.model.Administrateur;
 import com.example.backend.repository.AdminRepository;
 import com.example.backend.repository.RoleRepository;
 import com.example.backend.validator.AdministrateurValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;

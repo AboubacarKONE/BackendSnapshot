@@ -46,8 +46,9 @@ public class ParticipantServiceImplement implements ParticipantService {
 
 	@Override
 	public List<Participant> listParticipant() {
-		return participantRepository.findAll();
+		return participantRepository.listParticipant();
 	}
+
 
 	@Override
 	public void deleteParticipant(Long id) {
@@ -62,6 +63,21 @@ public class ParticipantServiceImplement implements ParticipantService {
 	@Override
 	public int findByparticipantGenre(ParticipantGenre genre) {
 		return participantRepository.findByparticipantGenre(genre);
+	}
+
+	@Override
+	public void supprimer(Long id_participant) {
+		participantRepository.supprimer(id_participant);
+	}
+
+	@Override
+	public void recupere(Long id_participant) {
+		participantRepository.recupere(id_participant);
+	}
+
+	@Override
+	public List<Participant> corbeille() {
+		return participantRepository.corbeille();
 	}
 
 }
