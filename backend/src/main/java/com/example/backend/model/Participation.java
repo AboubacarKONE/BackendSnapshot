@@ -18,7 +18,6 @@ import java.sql.Time;
 @NoArgsConstructor
 @ToString
 public class Participation implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

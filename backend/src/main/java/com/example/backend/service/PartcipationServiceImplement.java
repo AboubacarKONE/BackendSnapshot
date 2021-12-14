@@ -20,6 +20,7 @@ public class PartcipationServiceImplement implements ParticipationService {
 
 	@Override
 	public Participation ajouterParticipation(Participation p) {
+		p.getActivite().getId();
 		return participationRepo.save(p);
 	}
 

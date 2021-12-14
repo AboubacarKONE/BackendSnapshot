@@ -22,8 +22,8 @@ public interface ParticipantRepository  extends JpaRepository<Participant,Long> 
 	@Query("SELECT count(*) FROM Participant p WHERE p.participantGenre =:participantGenre and p.etat='active'")
 	int findByparticipantGenre(@Param("participantGenre") ParticipantGenre participantGenre);
 
-	@Query("SELECT p FROM Participant p WHERE p.id_participant=:id_participant and p.etat='active'")
-	Participant ParticipantById(Long id_participant);
+	@Query("SELECT p FROM Participant p WHERE p.id=:id and p.etat='active'")
+	Participant ParticipantById(Long id);
 
 	@Query("SELECT p FROM Participant p WHERE p.etat='active'")
 	 List<Participant> listParticipant();
@@ -31,12 +31,12 @@ public interface ParticipantRepository  extends JpaRepository<Participant,Long> 
 
 	@Transactional
 	@Modifying
-	@Query("UPDATE Participant SET etat='inactive' WHERE id_participant=:id_participant")
-	 void supprimer(Long id_participant);
+	@Query("UPDATE Participant SET etat='inactive' WHERE id=:id")
+	 void supprimer(Long id);
 
 
 	@Transactional
 	@Modifying
-	@Query("UPDATE Participant SET etat='actvie' WHERE id_participant=:id_participant")
-	void recupere(Long id_participant);
+	@Query("UPDATE Participant SET etat='actvie' WHERE id=:id")
+	void recupere(Long id);
 }

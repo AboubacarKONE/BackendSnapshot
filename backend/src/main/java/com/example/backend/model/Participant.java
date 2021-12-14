@@ -29,7 +29,7 @@ public class Participant implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id_participant;
+	private Long id;
 	@NotBlank(message = "Veuillez renseigner le nom du participant...")
 	private String nom_complet;
 	@NotNull(message = "Veuillez renseigner le numéro de téléphone....")
