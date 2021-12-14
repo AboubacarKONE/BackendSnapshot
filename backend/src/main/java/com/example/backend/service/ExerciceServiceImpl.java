@@ -18,7 +18,10 @@ public class ExerciceServiceImpl implements ExerciceService{
 
 	@Override
 	public void ajoutExercice(Exercice exercice) {
-		 exerciceRepository.save(exercice);		
+		Exercice exo = this.exerciceRepository.getExerciceByAnnee(exercice.getAnnee());
+		if(exo == null){
+		 exerciceRepository.save(exercice);
+		}
 	}
 
 	@Override
@@ -50,7 +53,7 @@ public class ExerciceServiceImpl implements ExerciceService{
 	}
 
 	@Override
-	public List<Exercice> getExerciceByAnnee(String annee) {
+	public Exercice getExerciceByAnnee(String annee) {
 		return exerciceRepository.getExerciceByAnnee(annee);
 	}
 

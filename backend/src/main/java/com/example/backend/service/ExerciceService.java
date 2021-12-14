@@ -2,8 +2,6 @@ package com.example.backend.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.example.backend.model.Exercice;
 
 
@@ -19,7 +17,7 @@ public interface ExerciceService {
    
     public void deleteExercice(Long id);
     
-    public List<Exercice> getExerciceByAnnee(String annee);
+    public Exercice getExerciceByAnnee(String annee);
 
     public void changeExerciceEtat(Long id);
 

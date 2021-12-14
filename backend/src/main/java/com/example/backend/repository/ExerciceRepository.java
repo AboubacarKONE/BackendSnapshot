@@ -13,7 +13,7 @@ import com.example.backend.model.Exercice;
 @RepositoryRestResource
 @CrossOrigin("*")
 public interface ExerciceRepository extends JpaRepository<Exercice, Long>{
-	public List<Exercice> getExerciceByAnnee(String annee);
+	Exercice getExerciceByAnnee(String annee);
 
 	@Query(value = "SELECT Ex FROM Exercice Ex WHERE Ex.etat = 'active' ")
 	List<Exercice> getAllExercice();
@@ -22,5 +22,6 @@ public interface ExerciceRepository extends JpaRepository<Exercice, Long>{
 	@Transactional
 	@Query(value = "UPDATE Exercice Ex SET Ex.etat = 'inactive'")
 	public void updateExerciceByEtat(Long id);
+
 
 }

@@ -55,7 +55,7 @@ public class ExerciceController {
 	       
 	    }
 	    @GetMapping("/ExerciceByYear={annee}")
-	    public List<Exercice> recherExerciceAnnee(@PathVariable("annee") String annee){
+	    public Exercice recherExerciceAnnee(@PathVariable("annee") String annee){
 	        return this.exerciceService.getExerciceByAnnee(annee);
 	    }
 
