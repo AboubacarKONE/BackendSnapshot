@@ -1,5 +1,6 @@
 package com.example.backend.repository;
 
+import com.example.backend.enumeration.Profile;
 import com.example.backend.model.Administrateur;
 
 import java.util.List;
@@ -16,11 +17,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RepositoryRestResource
 @CrossOrigin("*")
 public interface AdminRepository extends JpaRepository<Administrateur, Long> {
-	@Query(value="select u from Administrateur u where u.email = :email")
+	//List<Administrateur>findAllByRoleId(Long id);
+	@Query(value="select u from Administrateur u where u.email = :email AND u.etat = 'active' ")
     Optional<Administrateur>findByEmail(@Param("email") String email);
-	Optional<Administrateur> getUserByLoginAndPassword( String login, String password);
-
-	@Query(value = "SELECT p FROM Administrateur p WHERE etat='active'")
-	List<Administrateur> list();
-
+	
+	@Query(value="select u from Administrateur u where u.profile = :profile AND u.etat = 'active' ")
+	List<Administrateur>findByProfile(@Param("profile") Profile profile);
+	
+	
 }

@@ -25,14 +25,10 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Entity
-public class Role implements Serializable {
-    
+public class Roles implements Serializable {    
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private String libelle;
-    private String description;
-    @ManyToOne
-    private Administrateur administrateur;
 
 }

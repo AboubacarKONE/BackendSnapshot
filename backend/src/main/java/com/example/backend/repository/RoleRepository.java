@@ -6,7 +6,9 @@
 package com.example.backend.repository;
 
 
-import com.example.backend.model.Role;
+
+import com.example.backend.model.Roles;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
  */
 @RepositoryRestResource
 @CrossOrigin("*")
-public interface RoleRepository extends JpaRepository<Role,Long>{
-	Role findByLibelle (String libelle);
+public interface RoleRepository extends JpaRepository<Roles,Long>{
+	Roles findByLibelle (String libelle);
     
 }

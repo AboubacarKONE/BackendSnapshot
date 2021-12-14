@@ -1,5 +1,7 @@
 package com.example.backend.enumeration;
 
 public enum Etat {
-    active, inactive, EnAttente
+
+    active, inactive, attente
+
 }

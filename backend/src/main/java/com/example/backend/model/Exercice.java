@@ -38,6 +38,4 @@ public class Exercice implements Serializable {
 	private Etat etat;
 	@ManyToOne
 	private Administrateur admin;
-	
-
 }

@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,35 +29,41 @@ public class ExerciceController {
 	ExerciceService exerciceService;
 	 //ajouter un exercice
 	@PostMapping("/ajoutExercice")
+	  @PostAuthorize("hasAuthority('AJOUTER')")
     public void ajouExercice(@RequestBody Exercice exercice){
         exerciceService.ajoutExercice(exercice);
         
     }
 	 //lister les exercice
 	  @GetMapping("/listeExercice")
+	  @PostAuthorize("hasAuthority('LISTER')")
 	    public List<Exercice> listExercice(){
 	        return exerciceService.listExercice();
 	    }
 	//un exercice par son identifiant
 	    @GetMapping("/ExerciceById/{id}")
+	    @PostAuthorize("hasAuthority('LISTER')")
 	    public Exercice unExercice(@PathVariable("id") Long id){
 	        return exerciceService.ExerciceById(id);
 	    }
 	  //mise à jour exercice
 	    @PutMapping("/updateExercice/{id}")
+	    @PostAuthorize("hasAuthority('MODIFIER')")
 	    public void reExercice(@PathVariable Long id, @RequestBody Exercice exercice){
 	        exerciceService.updateExcercice(id, exercice);
 	       
 	    }
-	  //supprimer un exercice
-	    @DeleteMapping("/supprimerExercice/{id}")
-	    public void supExercice(@PathVariable Long id){
-	        exerciceService.deleteExercice(id);
-	       
-	    }
+	 
 	    @GetMapping("/ExerciceByYear={annee}")
-	    public List<Exercice> recherExerciceAnnee(@PathVariable("annee") String annee){
+	    @PostAuthorize("hasAuthority('LISTER')")
+	    public Exercice recherExerciceAnnee(@PathVariable("annee") String annee){
 	        return this.exerciceService.getExerciceByAnnee(annee);
 	    }
+
+		//change exercice etat
+		@DeleteMapping("/supprimerExercice/{id}")
+		public void supprimerExercice(@PathVariable Long id){
+			exerciceService.deleteExercice(id);
+		}
 
 }
