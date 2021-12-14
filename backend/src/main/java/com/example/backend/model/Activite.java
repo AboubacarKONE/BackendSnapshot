@@ -45,9 +45,7 @@ public class Activite implements Serializable{
     private Administrateur administrateur;
     @ManyToOne
     private Exercice exercice;
-    @OneToMany(mappedBy = "activite", cascade = CascadeType.ALL)
-    @JsonProperty(access = Access.WRITE_ONLY)
-    private List<Participation> participations;
+
 
 
 

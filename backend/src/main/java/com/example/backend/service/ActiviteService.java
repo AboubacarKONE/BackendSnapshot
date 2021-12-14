@@ -15,8 +15,8 @@ public interface ActiviteService {
      Activite listeByIdInactive (Long id, Etat etat);//activite by etat inactive
      List<Activite> getAllActivite();//all activite by etat active
      List<Activite> getAllActiviteInactive();//all activite by etat inactive
-     String disableActivite (Long id);//desactive activite
-     String enableActivite(Long id);//active Activite
+     void disableActivite (Long id);//desactive activite
+     void enableActivite(Long id);//active Activite
      List<Activite>findActiviteByAnnee(String annee);
      List<Activite> getActiviteByMonth(int year, int month);
 

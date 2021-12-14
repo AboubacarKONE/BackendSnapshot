@@ -1,10 +1,13 @@
 package com.example.backend.service;
 
+import com.example.backend.enumeration.Etat;
 import com.example.backend.model.Participation;
 import com.example.backend.repository.ParticipationRepo;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -22,7 +25,7 @@ public class PartcipationServiceImplement implements ParticipationService {
 
 	@Override
 	public void deleteParticipation(Long id) {
-		participationRepo.deleteById(id);
+		participationRepo.deleteParticipationEtat(id);
 	}
 
 	@Override
@@ -40,11 +43,31 @@ public class PartcipationServiceImplement implements ParticipationService {
 
 	@Override
 	public List<Participation> getAllParticipation() {
-		return participationRepo.findAll();
+		return participationRepo.getAllParticipation();
+	}
+
+	@Override
+	public List<Participation> getAllParticipationInactive() {
+		return participationRepo.getAllParticipationInactive();
 	}
 
 	@Override
 	public Participation getParticipationById(Long id) {
-		return participationRepo.findById(id).get();
+		return participationRepo.getPartById(id);
+	}
+
+	@Override
+	public List<Participation> participantByActivite(Long IdActivite) {
+		return participationRepo.getParticipationByActiviteAndEtat(IdActivite);
+	}
+
+	@Override
+	public List<Participation> participationByEtat(Etat etat) {
+		return participationRepo.getAllParticipationByEtat(etat);
+	}
+
+	@Override
+	public void restaurer(Long id) {
+		 participationRepo.restaurerParticipationEtat(id);
 	}
 }

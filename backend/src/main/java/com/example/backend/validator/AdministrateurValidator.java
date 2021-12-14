@@ -26,9 +26,6 @@ public class AdministrateurValidator {
 		if(!StringUtils.hasLength(admin.getPrenom())) {
 			errors.add("Veuillez renseigner le prenom de l'administrateur");
 		}
-//		if(!StringUtils.hasLength(admin.getLogin())) {
-//			errors.add("Veuillez renseigner le login de l'aministrateur");
-//		}
 		if(!StringUtils.hasLength(admin.getEmail())) {
 			errors.add("Veuillez renseigner l'email de l'utilisateur");
 		}
@@ -38,9 +35,9 @@ public class AdministrateurValidator {
 		if(admin.getEtat()==null) {
 			errors.add("Veuillez renseigner l'état de l'administrateur");
 		}
-//		if(admin.getRole()==null||admin.getRole().getId()==null) {
-//			errors.add("Veuillez renseigner le role de l'administrzteur");
-//		}
+	//	if(admin.getRoles()==null||admin.getRoles().getId()==null) {
+	//		errors.add("Veuillez renseigner le role de l'administrzteur");
+	//	}
 		return errors;
 	}
 

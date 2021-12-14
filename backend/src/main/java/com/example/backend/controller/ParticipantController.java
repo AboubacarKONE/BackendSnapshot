@@ -52,7 +52,7 @@ public class ParticipantController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "le participant a été supprimé"),
 			@ApiResponse(code = 404, message = "aucun participant avec cet id n'existe dans la BDD") })
     public void delete (@PathVariable("id") Long id){
-       participantService.deleteParticipant(id);
+       participantService.supprimer(id);
       
     }
 

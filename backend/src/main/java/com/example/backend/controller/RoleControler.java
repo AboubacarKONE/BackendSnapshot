@@ -77,6 +77,7 @@ public class RoleControler {
     public Roles update(@RequestBody Roles role, @PathVariable Long id){
         return roleserviceimp.modifier_role(id, role);
     }
+
     @GetMapping("/role/verification={libelle}")
     @ApiOperation(value = "rechercher un role par libelle", notes = "cette methode permet de rechercher un role par son libelle", response = Roles.class)
  	@ApiResponses(value = { @ApiResponse(code = 200, message = "le libelle trouvé dans la BDD"),

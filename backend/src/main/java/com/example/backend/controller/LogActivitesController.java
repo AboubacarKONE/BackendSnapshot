@@ -77,10 +77,4 @@ public class LogActivitesController {
 		logactivitesService.deleteLogActivitesByid(id);
 
 	}
-
-	@GetMapping("/logActivite/{IdActivite}")
-	@PostAuthorize("hasAuthority('LISTER')")
-	public List<LogActivites> listByActivite(@PathVariable("IdActivite") Long IdActivite) {
-		return logactivitesService.listLogActivites();
-	}
 }

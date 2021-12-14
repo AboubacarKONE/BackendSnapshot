@@ -3,17 +3,12 @@ package com.example.backend.controller;
 
 import com.example.backend.enumeration.Etat;
 import com.example.backend.model.Activite;
-import com.example.backend.model.Administrateur;
-import com.example.backend.repository.ActiviteRepository;
 import com.example.backend.service.ActiviteService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,17 +70,23 @@ public class ActiviteController {
      @ApiOperation(value = "supprimer une activité avec comme role SUPPRIMER", notes = "cette methode permet de supprimer une activité par son id")
  	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'apprenant a été supprimé"),
  	@ApiResponse(code = 404, message = "aucune activité avec cet id n'existe dans la BDD") })
-    public String supprimerActiviteById(@PathVariable ("Id_activite") long id){
-    return this.activiteService.disableActivite(id);
+    public void supprimerActiviteById(@PathVariable ("Id_activite") long id){
+    	 this.activiteService.disableActivite(id);
      }
      //activite par anne
      @GetMapping("/activiteByAnnee={annee}")
      @PostAuthorize("hasAuthority('LISTER')")
+     @ApiOperation(value = "avoir une activité par année" , notes = "cette methode permet de renvoyer une activité selon l'année d'exercice")
+     @ApiResponses(value = { @ApiResponse(code = 200, message = "activité selon l'année"),
+             @ApiResponse(code = 404, message = "aucune activité avec cette année n'existe dans la BDD") })
      List<Activite>findActiviteByAnnee(@PathVariable String annee){
     	 return activiteService.findActiviteByAnnee(annee);
      }
      @GetMapping("/actviteByMonth={year}-{month}")
      @PostAuthorize("hasAuthority('LISTER')")
+     @ApiOperation(value = "avoir une activité par mois" , notes = "cette methode permet de renvoyer une activité selon le mois")
+     @ApiResponses(value = { @ApiResponse(code = 200, message = "activité selon le mois"),
+             @ApiResponse(code = 404, message = "aucune activité avec ce mois n'existe dans la BDD") })
      public List<Activite> listByMonth(@PathVariable("year") int year, @PathVariable("month") int month ){
          return activiteService.getActiviteByMonth(year,month);
      }

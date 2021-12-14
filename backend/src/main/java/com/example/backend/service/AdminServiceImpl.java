@@ -3,21 +3,15 @@ package com.example.backend.service;
 import com.example.backend.Exception.EntityNotFoundException;
 import com.example.backend.Exception.ErrorCodes;
 import com.example.backend.Exception.InvalidEntityException;
-import com.example.backend.enumeration.Profile;
 import com.example.backend.model.Administrateur;
 import com.example.backend.repository.AdminRepository;
 import com.example.backend.repository.RoleRepository;
 import com.example.backend.validator.AdministrateurValidator;
-
+import com.example.backend.enumeration.Etat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -34,8 +28,8 @@ public class AdminServiceImpl implements AdminService {
 	private RoleRepository roleRepository;
 
 	@Override
-	public List<Administrateur> list() {
-		return adminRepository.findAll();
+	public List<Administrateur> getAllAdministrateur() {
+		return adminRepository.getAllAdministrateur();
 	}
 
 	@Override
@@ -63,9 +57,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Administrateur updateAdmin(Long id, Administrateur admin) {
-		List<String>errors=AdministrateurValidator.validator(admin);
-		if(!errors.isEmpty()) {
-			throw new InvalidEntityException("Adminstrateur n'est pas valide", ErrorCodes.ADMINISTRATEUR_INVALID, errors);
+		List<String> errors= AdministrateurValidator.validator(admin);
+		if (!errors.isEmpty()){
+			throw new InvalidEntityException("l' admin à modifier n'est pas valide", ErrorCodes.ADMINISTRATEUR_INVALID, errors);
 		}
 		Administrateur administrateur = adminRepository.findById(id).get();
 		administrateur.setNom(admin.getNom());
@@ -77,6 +71,12 @@ public class AdminServiceImpl implements AdminService {
 		administrateur.setProfile(admin.getProfile());
 		administrateur.setTelephone(admin.getTelephone());
 		return adminRepository.save(administrateur);
+
+	}
+
+	@Override
+	public Administrateur getAdById(Long id) {
+		return adminRepository.getAdById(id);
 	}
 
 	@Override
@@ -85,9 +85,10 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 
-	@Override
-	public Administrateur AdminById(Long id) {
-		return adminRepository.findById(id).get();	}
+	public List<Administrateur> getAdministrateurByEtat(Etat etat) {
+		return adminRepository.getAllAdministrateurByEtat(etat) ;
+	}
+
 
 	@Override
 	public Administrateur findByEmail(String Email) {

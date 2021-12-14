@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.example.backend.enumeration.Etat;
 import com.example.backend.enumeration.ParticipantGenre;
 
 import java.io.Serializable;
@@ -28,12 +29,14 @@ public class Participant implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id_participant;
+	private Long id_participant;
 	@NotBlank(message = "Veuillez renseigner le nom du participant...")
 	private String nom_complet;
-	@NotNull(message = "Veuillez renseigner le numéro de téléphone...")
+	@NotNull(message = "Veuillez renseigner le numéro de téléphone....")
 	private Integer telephone;
 	private String domaine;
+	@Enumerated(EnumType.STRING)
+	private Etat etat = Etat.active;
 	private String structure;
 	@NotBlank(message = "Veuillez renseigner l'email du participant...")
 	private String email;
