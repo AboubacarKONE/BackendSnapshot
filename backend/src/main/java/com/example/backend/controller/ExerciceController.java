@@ -53,17 +53,17 @@ public class ExerciceController {
 	        exerciceService.updateExcercice(id, exercice);
 	       
 	    }
-	  //supprimer un exercice
-	    @DeleteMapping("/supprimerExercice/{id}")
-	    @PostAuthorize("hasAuthority('SUPPRIMER')")
-	    public void supExercice(@PathVariable Long id){
-	        exerciceService.deleteExercice(id);
-	       
-	    }
+	 
 	    @GetMapping("/ExerciceByYear={annee}")
 	    @PostAuthorize("hasAuthority('LISTER')")
-	    public List<Exercice> recherExerciceAnnee(@PathVariable("annee") String annee){
+	    public Exercice recherExerciceAnnee(@PathVariable("annee") String annee){
 	        return this.exerciceService.getExerciceByAnnee(annee);
 	    }
+
+		//change exercice etat
+		@DeleteMapping("/supprimerExercice/{id}")
+		public void supprimerExercice(@PathVariable Long id){
+			exerciceService.deleteExercice(id);
+		}
 
 }
