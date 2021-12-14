@@ -24,6 +24,7 @@ import com.example.backend.enumeration.TypeActivite;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -33,10 +34,10 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-public class Activite {
+public class Activite implements Serializable{
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long IdActivite;
+    private Long id;
     private  String libelle;
     @Enumerated(EnumType.STRING)
     private  TypeActivite type;
@@ -51,6 +52,7 @@ public class Activite {
     @OneToMany(mappedBy = "activite", cascade = CascadeType.ALL)
     @JsonProperty(access = Access.WRITE_ONLY)
     private List<Participation> participations; 
+
 
 
 }
