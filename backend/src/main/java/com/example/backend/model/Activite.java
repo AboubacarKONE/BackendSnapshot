@@ -14,9 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotBlank;
 
 
 import com.example.backend.enumeration.Etat;
@@ -26,7 +23,6 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -44,14 +40,14 @@ public class Activite implements Serializable{
     private LocalDate dateDebut;
     private LocalDate dateFin;
     @Enumerated(EnumType.STRING)
-    private Etat etat;
+    private Etat etat = Etat.active;
     @ManyToOne
     private Administrateur administrateur;
     @ManyToOne
     private Exercice exercice;
     @OneToMany(mappedBy = "activite", cascade = CascadeType.ALL)
     @JsonProperty(access = Access.WRITE_ONLY)
-    private List<Participation> participations; 
+    private List<Participation> participations;
 
 
 

@@ -1,11 +1,14 @@
 package com.example.backend.service;
 
+import com.example.backend.enumeration.Etat;
 import com.example.backend.model.Activite;
 import com.example.backend.repository.ActiviteRepository;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,9 +18,14 @@ public class ActiviteImp implements ActiviteService {
 	ActiviteRepository activiteRepository;
 
 	@Override
-	public String ajouterActivite(Activite activite) {
-		this.activiteRepository.save(activite);
-		return "Ajout Ok" + activite.getType();
+	public void ajouterActivite(Activite activite) {
+		if (activite.getDateDebut().isBefore(activite.getDateFin())){
+			this.activiteRepository.save(activite);
+		}else {
+			System.out.println("Non enregistrer");
+		}
+
+
 	}
 
 	@Override
@@ -25,31 +33,47 @@ public class ActiviteImp implements ActiviteService {
 	public void modifierActivite(Long Id, Activite activite) {
 		Activite activiteAncien = activiteRepository.findById(Id).get();
 		activiteAncien.setLibelle(activite.getLibelle());
-		activiteAncien.setType(activite.getType());
 		activiteAncien.setDateDebut(activite.getDateDebut());
 		activiteAncien.setDateFin(activite.getDateFin());
 		activiteAncien.setEtat(activite.getEtat());
 	}
-
+	//Activite by Etat active
 	@Override
-	public String supprimerActiviteById(Long Id_activite) {
-		this.activiteRepository.deleteById(Id_activite);
-		return "Suppression de l'activité";
+	public Activite listeById(Long idActivite, Etat etat) {
+		return activiteRepository.getActiviteByIdAndEtat(idActivite, etat );
+	}
+	//Activite by Etat inactive
+	@Override
+	public Activite listeByIdInactive(Long id, Etat etat) {
+		return activiteRepository.getActiviteByIdAndEtat(id,etat);
 	}
 
-	@Override
-	public Activite listeById(Long Id_activite) {
-		return activiteRepository.findById(Id_activite).get();
-	}
-
+	//All Activite
 	@Override
 	public List<Activite> getAllActivite() {
-		return activiteRepository.findAll();
+		return activiteRepository.getAllActivite();
+	}
+
+	@Override
+	public List<Activite> getAllActiviteInactive() {
+		return activiteRepository.getAllActiviteInactive();
+	}
+
+	// desactive activite
+	@Override
+	public String disableActivite(Long id) {
+		this.activiteRepository.desableActivite(id);
+		return "Suppression de l'activité";
+	}
+	// active Activite
+	@Override
+	public String enableActivite(Long id) {
+		this.activiteRepository.enableActivite(id);
+		return "Activer avec succes";
 	}
 
 	@Override
 	public List<Activite> findActiviteByAnnee(String annee) {
-
 		return activiteRepository.findActiviteByAnnee(annee);
 	}
 
