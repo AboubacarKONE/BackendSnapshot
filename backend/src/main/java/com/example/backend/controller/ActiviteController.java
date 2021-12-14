@@ -27,26 +27,17 @@ public class ActiviteController {
    @Autowired
    ActiviteService activiteService;
 
-    //Get all activite of Etat = active
+    //lister toutes les activités
     @GetMapping("/activites")
-    @PostAuthorize("hasAuthority('LISTER')")
+    //@PostAuthorize("hasAuthority('LISTER')")
     @ApiOperation(value = "renvoi la liste des activités avec comme role LISTER", notes = "cette methode permet de chercher et renvoyer la liste des activités qui existent"
 			+ "dans la BDD", responseContainer = "liste<Activité>")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des activités / une liste vide") })
     public List<Activite> getAllActivite(){
-
-        return activiteService.getAllActivite();
+    return activiteService.getAllActivite();
     }
-    //Get all activite of Etat = Inactive
-    @GetMapping("/activitesInactive")
-    @ApiOperation(value = "renvoi la liste des activités", notes = "cette methode permet de chercher et renvoyer la liste des activités qui existent"
-            + "dans la BDD", responseContainer = "liste<Activité>")
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "la liste des activités / une liste vide") })
-    public List<Activite> getAllActiviteInactive(){
 
-        return activiteService.getAllActiviteInactive();
-    }
-    //Add activite
+    //AJOUTER UNE ACTIVITE
     @PostMapping("/saveActivite")
     @PostAuthorize("hasAuthority('AJOUTER')")
     @ApiOperation(value = "Enregistrer une activité avec comme role AJOUTER", notes = "cette methode permet d'ajouter une activité", response = Activite.class)
@@ -57,7 +48,7 @@ public class ActiviteController {
          
     }
 
-    //Update activite
+    //MODIFIER UNE ACTIVITE
     @PutMapping ("updateActivite/{Id_activite}")
     @PostAuthorize("hasAuthority('MODIFIER')")
     @ApiOperation(value = "Modifier une activité avec comme role MODIFIER", notes = "cette methode permet de modifier une activité", response = Activite.class)
@@ -67,33 +58,15 @@ public class ActiviteController {
     this.activiteService.modifierActivite(Id_activite, activite);
     
      }
-     //Desable activite
-     @PutMapping ("desableActivite/{id}")
-     @ApiOperation(value = "Modifier l'Etat d'une activité en inactive", notes = "cette methode permet de modifier l'Etat d'une activité en inactive", response = Activite.class)
-     @ApiResponses(value = { @ApiResponse(code = 200, message = "l'objet activité supprimer"),
-             @ApiResponse(code = 400, message = "l'objet activité n'est pas valide") })
-     public void desableActivite(@PathVariable("id") Long id) {
-      this.activiteService.disableActivite(id);
 
-     }
-     //Enable activite
-     @PutMapping ("enableActivite/{id}")
-     @ApiOperation(value = "Modifier l'Etat d'une activité en active", notes = "cette methode permet de modifier l'Etat d'une activité en active", response = Activite.class)
-     @ApiResponses(value = { @ApiResponse(code = 200, message = "l'objet activité activé"),
-             @ApiResponse(code = 400, message = "l'objet activité n'est pas valide") })
-     public void enableActivite(@PathVariable("id") Long id) {
-      this.activiteService.enableActivite(id);
-     }
-
-<<<<<<< HEAD
     //AVOIR UNE ACTIVITE PAR ID²
     @GetMapping("/ActiviteById/{Id_activite}")
-    @PostAuthorize("hasAuthority('LISTER')")
+   @PostAuthorize("hasAuthority('LISTER')")
     @ApiOperation(value = "rechercher une activité avec comme role LISTER", notes = "cette methode permet de rechercher une activité par son id", response = Activite.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'activité trouvé dans la BDD"),
 			@ApiResponse(code = 404, message = "aucune activité avec cet id n'existe dans la BDD") })
     public Activite AvoirUneActivite(@PathVariable("Id_activite") Long Id_activite){
-        return activiteService.listeById(Id_activite);
+        return activiteService.listeById(Id_activite, Etat.active);
     }
 
     //SUPPRIMER ACTIVITE
@@ -102,48 +75,17 @@ public class ActiviteController {
      @ApiOperation(value = "supprimer une activité avec comme role SUPPRIMER", notes = "cette methode permet de supprimer une activité par son id")
  	@ApiResponses(value = { @ApiResponse(code = 200, message = "l'apprenant a été supprimé"),
  	@ApiResponse(code = 404, message = "aucune activité avec cet id n'existe dans la BDD") })
-    public String supprimerActiviteById(@PathVariable ("Id_activite") long Id_activite){
-    return this.activiteService.supprimerActiviteById(Id_activite);
+    public String supprimerActiviteById(@PathVariable ("Id_activite") long id){
+    return this.activiteService.disableActivite(id);
      }
      //activite par anne
      @GetMapping("/activiteByAnnee={annee}")
      @PostAuthorize("hasAuthority('LISTER')")
-=======
-  //Activite by Etat active
-    @GetMapping("/ActiviteById/{id}")
-    @ApiOperation(value = "rechercher une activité active ", notes = "cette methode permet de rechercher une activité active par son id", response = Activite.class)
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "l'activité trouvé dans la BDD"),
-            @ApiResponse(code = 404, message = "aucune activité active avec cet id n'existe dans la BDD") })
-    public Activite AvoirUneActivite(@PathVariable("id") Long id) {
-        return activiteService.listeById(id, Etat.active);
-    }
-    //Activite by Etat inactive
-    @GetMapping("/ActiviteByIdInac/{id}")
-    @ApiOperation(value = "rechercher une activité inactive", notes = "cette methode permet de rechercher une activité inactive par son id", response = Activite.class)
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "l'activité trouvé dans la BDD"),
-            @ApiResponse(code = 404, message = "aucune activité avec cet id n'existe dans la BDD") })
-    public Activite AvoirUneActiviteInactive(@PathVariable("id") Long id){
-     return activiteService.listeById(id,Etat.inactive);
-    }
-
-     //activite by year
-     @GetMapping("/activiteByAnnee={annee}")
-     @ApiOperation(value = "rechercher une activité par annee", notes = "cette methode permet de rechercher une activité annee", response = Activite.class)
-     @ApiResponses(value = { @ApiResponse(code = 200, message = "l'activité trouvé dans la BDD"),
-             @ApiResponse(code = 404, message = "aucune activité n'existe dans la BDD") })
->>>>>>> 2db8d195b8d401fa4d548aaf6961fcdf0a427738
      List<Activite>findActiviteByAnnee(@PathVariable String annee){
     	 return activiteService.findActiviteByAnnee(annee);
      }
-    //activite by month
      @GetMapping("/actviteByMonth={year}-{month}")
-<<<<<<< HEAD
      @PostAuthorize("hasAuthority('LISTER')")
-=======
-     @ApiOperation(value = "rechercher une activité mois", notes = "cette methode permet de rechercher une activité mois", response = Activite.class)
-     @ApiResponses(value = { @ApiResponse(code = 200, message = "l'activité trouvé dans la BDD"),
-             @ApiResponse(code = 404, message = "aucune activité n'existe dans la BDD") })
->>>>>>> 2db8d195b8d401fa4d548aaf6961fcdf0a427738
      public List<Activite> listByMonth(@PathVariable("year") int year, @PathVariable("month") int month ){
          return activiteService.getActiviteByMonth(year,month);
      }
