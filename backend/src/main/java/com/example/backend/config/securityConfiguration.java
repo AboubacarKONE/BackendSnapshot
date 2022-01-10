@@ -40,18 +40,17 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter {
 		//http.formLogin();
 		http.addFilterBefore(corsFilter(),SessionManagementFilter.class)
 		.csrf().disable().authorizeRequests()
-//		.antMatchers("/**/authenticate",
-//			 "/**/odcmanager/api/v1/**/",
-//			 "/v2/api-docs",
-//			 "/swagger-resources",
-//			 "/swagger-resources/**",
-//			 "/configuration/ui",
-//			 "/configuration/security",
-//			 "/swagger-ui.html",
-//			 "/webjars/**",
-//			 "/v3/api-docs/**",
-//			 "/swagger-ui/**").permitAll()
-		.anyRequest().permitAll()
+		.antMatchers("/**/authentificate",
+			 "/v2/api-docs",
+			 "/swagger-resources",
+			 "/swagger-resources/**",
+			 "/configuration/ui",
+			 "/configuration/security",
+			 "/swagger-ui.html",
+			 "/webjars/**",
+			 "/v3/api-docs/**",
+			 "/swagger-ui/**").permitAll()
+		.anyRequest().authenticated()
 		.and().sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(applicationRequestFilter, UsernamePasswordAuthenticationFilter.class);

@@ -1,0 +1,84 @@
+<app-header></app-header>
+<app-side-menu></app-side-menu>
+<div class="page-wrapper">
+    <div class="page-breadcrumb bg-white">
+        <div class="row align-items-center sous-header">
+            <div class="col-lg-6 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Corbeille Administrateurs</h4>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+    <div class="row justify-content-center" style="margin: 0 auto;">
+        <!-- Mettre ici le contenu de la page -->
+       
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item">
+                          <a class="nav-link " href="activite-Corbeille">Activités <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link disabled" href="admin-Corbeille">Administrateurs</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="exercice-Corbeille">Exercices</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="responsable-Corbeille">Responsables</a>
+                          </li>
+                      </ul>
+                    </div>
+                </nav>
+                <div class="white-box">
+                    <div class="d-md-flex mb-3">
+                        <div class="row col-md-12 col-lg-12 col-sm-12">
+                            <div class="col-md-6 col-lg-6 col-sm-6">
+                                <h3 class="box-title mb-0">Liste des administrateurs</h3>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-sm-6">
+                                <form role="search" >
+                                    <a href="" class="active">
+                                        <i class="fa fa-search"></i>
+                                    </a>
+                                    <input type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Recherche..." class="form-control mt-0">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table no-wrap">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0"><b>Nom</b></th>
+                                    <th class="border-top-0"><b>Prénom</b></th>
+                                    <th class="border-top-0"><b>Téléphone</b></th>
+                                    <th class="border-top-0"><b>Email</b></th>
+                                    <th class="border-top-0"><b>Rôle</b></th>
+                                    <th class="border-top-0"><b>Action</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let liste of listAdmin | filter:searchText">
+                                    <td class="txt-oflo">{{liste.nom}}</td>
+                                    <td class="txt-oflo">{{liste.prenom}}</td>
+                                    <td class="txt-oflo">{{liste.telephone}}</td>
+                                    <td class="txt-oflo">{{liste.email}}</td>
+                                    <td class="txt-oflo">{{liste.role.libelle}}</td>
+                                    <td>
+                                        <span class="text-success alignement">
+                                            <a (click)="deleteAdmin(liste.id)"><i style="color: blue;" class="far fa-window-restore" aria-hidden="true" onclick ="return(confirm('Êtes-vous certain de vouloir Restaurer cet administrateur ?'));"></i></a>
+                                         </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

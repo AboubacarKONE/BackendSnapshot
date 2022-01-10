@@ -1,0 +1,95 @@
+<app-header></app-header>
+<app-side-menu></app-side-menu>
+<div class="page-wrapper">
+    <div class="page-breadcrumb bg-white">
+        <div class="row align-items-center sous-header">
+            <div class="col-lg-1 col-sm-1 col-md-1 col-xs-12">
+                <a [routerLink]="['/liste-activite']">
+                    <b>
+                     <i style="color: orangered; font-size: 30px;" class="fas fa-arrow-circle-left"></i>
+                    </b>
+                </a>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <h4 class="page-title">AJOUTER UNE ACTIVITE</h4>
+            </div>
+          </div>
+    </div>
+    <div class="container-fluid">
+    <div class="row justify-content-center" style="margin: 0 auto;">
+
+        <div class="col-lg-3 col-xlg-3 col-md-12"></div>
+            <!-- Column -->
+            <!-- Column -->
+            <div class="col-lg-6 col-xlg-3 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form #AjoutForm="ngForm" (ngSubmit)="AjoutActivite(AjoutForm)" class="form-horizontal form-material">
+                            <div class="form-group mb-4">
+                                <label class="col-md-12 p-0">Exercice *</label>
+                                <div class="col-md-12 border-bottom p-0">
+                                        <select  class="form-control p-0 border-0" name="exercice" id="singleSelect" ngModel #exercice="ngModel" required>
+                                            <option value="">---Sélectionner un exercice---</option> 
+                                            <option *ngFor="let exo of listeExo" value={{exo.id}}>{{exo.annee}}</option>
+                                        </select>
+                                        <div [hidden]="exercice.valid || exercice.pristine" class="alert alert-danger">
+                                            L'exercice est obligatoire
+                                        </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label class="col-md-12 p-0">Libellé *</label>
+                                <div class="col-md-12 border-bottom p-0">
+                                    <input type="text" placeholder="Le libellé de l'activité" class="form-control p-0 border-0" name="libelle" ngModel #libelle="ngModel" autocomplete="off"  pattern="[a-zA-Z0-9 ]*" required>
+                                    <div [hidden]="libelle.valid || libelle.pristine" class="alert alert-danger">
+                                    Le libellé de l'activité est obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label class="col-md-12 p-0">Type *</label>
+                                <div class="col-md-12 border-bottom p-0">
+                                    <select class="form-control p-0 border-0" name="type" ngModel #type="ngModel" required>
+                                        <option value="">---sélectionnez un type---</option>
+                                        <option value="Formation">Formation</option>
+                                        <option value="Talk">Talk</option>
+                                        <option value="Évènement">Evènement</option>
+                                    </select>
+                                    <div [hidden]="type.valid || type.pristine" class="alert alert-danger">
+                                        Le type d'activité est obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label class="col-md-12 p-0">Date début *</label>
+                                <div class="col-md-12 border-bottom p-0">
+                                    <input type="date" class="form-control p-0 border-0" name="dateDebut" ngModel #dateDebut="ngModel" required>
+                                    <div [hidden]="dateDebut.valid || dateDebut.pristine" class="alert alert-danger">
+                                        La date de début de l'activité est obligatoire
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label class="col-md-12 p-0">Date fin *</label>
+                                <div class="col-md-12 border-bottom p-0">
+                                    <input type="date" class="form-control p-0 border-0" name="dateFin" ngModel #dateFin="ngModel" required>
+                                    <div [hidden]="dateFin.valid || dateFin.pristine" class="alert alert-danger">
+                                        La date de fin de l'activité est obligatoire
+                                    </div>
+                                </div>
+                            </div><br><br>
+                            <p style="font-weight: bold; color: red;">(*) champ obligatoire</p>
+                            <div class="form-group mb-4">
+                                <div class="col-sm-12 align-button">
+                                    <button class="btn btn-warning" type="submit" [disabled]="AjoutForm.form.invalid">Suivant</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xlg-3 col-md-12"></div>
+
+    </div>
+</div>
+</div>
